@@ -1,11 +1,11 @@
 import { sql } from '@vercel/postgres';
 import {
     LandingTable
-} from './definitions.';
+} from './definition';
 
 const ITEMS_PER_PAGE = 10;
 
-export async function fetchFilteredInvoices(
+export async function getLandingList(
     query: string,
     currentPage: number,
   ) {

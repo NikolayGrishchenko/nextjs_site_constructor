@@ -1,8 +1,7 @@
 import { getLandingList } from "@/app/lib/data";
-import Image from "next/image";
 
 export default async function LandingList() {
-    const landings = await getLandingList();
+    const landings = await getLandingList('', 1);
 
     return (
         <div className="container">
@@ -36,18 +35,7 @@ export default async function LandingList() {
                             </tr>
                         </thead>
                         <tbody>
-                            {landings.map(item => 
-                                <tr>
-                                    <td>{ item.name }</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td>
-
-                                    </td>
-                                </tr>
-                            )}
+                            
                         </tbody>
                     </table>
                 </div>
