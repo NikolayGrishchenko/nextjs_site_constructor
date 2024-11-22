@@ -1,6 +1,8 @@
 import { getLandingList } from "@/app/lib/data";
 
 export default async function LandingList() {
+    const list = getLandingList('', 1);
+
     return (
         <div className="container">
             <div className="row">
