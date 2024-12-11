@@ -92,3 +92,21 @@ export const getTitleButtonBlockDefault = (): TitleButtonBlockType => {
         button: getButtonNodeDefault(),
     };
 }
+
+export type TextImageBlockType = {
+    show: boolean,
+    background: string,
+    title: TitleNodeType,
+    text: TextNodeType,
+    media: MediaNodeType,
+};
+
+export const getTextImageBlockDefault = (): TextImageBlockType => {
+    return {
+        show: true,
+        background: '',
+        title: getTitleNodeDefault(),
+        text: getTextNodeDefault(),
+        media: getMediaNodeDefault(),
+    };
+}

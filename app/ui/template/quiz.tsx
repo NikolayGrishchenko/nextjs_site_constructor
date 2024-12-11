@@ -8,6 +8,7 @@ import { ColumnsBlockType, HeaderBlockType, MediaBlockType, SectionBlockType, Ti
 import { EditorEventType } from "@/app/lib/type/editor";
 import { QuizTemplateType } from "@/app/lib/type/template";
 import TitleButtonBlock from "../block/title_button";
+import TextImageBlock from "../block/text_image";
 
 export default function QuizTemplate(props: {
     data: QuizTemplateType,
@@ -52,6 +53,13 @@ export default function QuizTemplate(props: {
         });
     }
 
+    function handleChangeTextImageData(textImageData: TitleButtonBlockType) {
+        props.onChangeData({
+            ...data,
+            text_image: textImageData,
+        });
+    }
+
     return (
         <div className="row quiz-template">
             <div className="col-12">
@@ -68,6 +76,9 @@ export default function QuizTemplate(props: {
             </div>
             <div className="col-12">
                 <TitleButtonBlock data={data.title_button} editorEvent={props.editorEvent} onChangeEditor={props.onChangeEditor} onChangeData={handleChangeTitleButtonData} />
+            </div>
+            <div className="col-12">
+                <TextImageBlock data={data.text_image} editorEvent={props.editorEvent} onChangeEditor={props.onChangeEditor} onChangeData={handleChangeTextImageData} />
             </div>
         </div>
     );

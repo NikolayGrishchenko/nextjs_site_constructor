@@ -4,10 +4,12 @@ import {
     getHeaderBlockDefault,
     getMediaBlockDefault,
     getSectionBlockDefault,
+    getTextImageBlockDefault,
     getTitleButtonBlockDefault,
     HeaderBlockType,
     MediaBlockType,
     SectionBlockType,
+    TextImageBlockType,
     TitleButtonBlockType
 } from "./block";
 
@@ -17,6 +19,7 @@ export type QuizTemplateType = {
     section: SectionBlockType,
     media: MediaBlockType,
     title_button: TitleButtonBlockType,
+    text_image: TextImageBlockType,
 };
 
 export const getQuizTemplateDefault = (): QuizTemplateType => {
@@ -26,5 +29,6 @@ export const getQuizTemplateDefault = (): QuizTemplateType => {
         section: getSectionBlockDefault(),
         media: getMediaBlockDefault(),
         title_button: getTitleButtonBlockDefault(),
+        text_image: getTextImageBlockDefault(),
     };
 }

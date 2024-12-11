@@ -6,6 +6,7 @@ import ColumnsBlockView from "../../block/view/columns";
 import SectionBlockView from "../../block/view/section";
 import MediaBlockView from "../../block/view/media";
 import TitleButtonBlockView from "../../block/view/title_button";
+import TextImageBlockView from "../../block/view/text_image";
 
 export default function QuizTemplateView(props: {
     data: QuizTemplateType,
@@ -37,6 +38,11 @@ export default function QuizTemplateView(props: {
             { data.title_button.show && (
                 <div className="col-12">
                     <TitleButtonBlockView data={data.title_button} />
+                </div>
+            )}
+            { data.text_image.show && (
+                <div className="col-12">
+                    <TextImageBlockView data={data.text_image} />
                 </div>
             )}
         </div>
