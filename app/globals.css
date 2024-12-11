@@ -1,21 +1,132 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+.table-row-hover:hover td {
+  background-color: #e3e3e3;
+}
+.modal-title {
+  font-size: 20px;
+  font-weight: bold;
+}
+.modal-input {
+  border: 1px solid #000;
+  padding: 5px 10px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.sidebar {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 2;
+  background-color: #fff;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+  text-align: center;
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+.editor {
+  position: sticky;
+  z-index: 2;
+  top: 0;
+  right: 0;
+  padding: 10px;
+  border: 1px solid #000;
+  background-color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 60px;
+}
+.editor-column {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.editor-button {
+  padding: 5px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.editor-button.active {
+  background-color: #d7d7d7;
+}
+
+.border {
+  border: 1px solid #fff;
+}
+.block {
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  margin-bottom: 20px;
+}
+.block.hidden {
+  opacity: 0.2;
+  filter: blur(2px);
+}
+
+.node-input {
+  border: 1px solid #000;
+  padding: 5px;
+}
+.text-node {
+  text-align: left;
+  color: #000;
+  font-size: 16px;
+}
+.text-node-input {
+  width: 100%;
+  border: 1px solid #000;
+  padding: 5px;
+}
+.title-node {
+  text-align: left;
+  color: #000;
+  font-size: 32px;
+  font-weight: bold;
+  width: 100%;
+}
+.title-node-input {
+  width: 50%;
+  border: 1px solid #000;
+  padding: 5px;
+  font-size: 32px;
+}
+.button-node {
+  padding: 5px 15px;
+  border: none;
+  border-radius: 50px;
+  background-color: #f56403;
+  text-decoration: none;
+  display: inline-block;
+  color: #fff;
+  font-weight: bold;
+}
+.button-node.border {
+  background-color: transparent;
+}
+.quiz-template {
+  padding: 20px;
+  position: relative;
+}
+.input-color {
+  width: 0;
+  height: 0;
+  display: block;
+  opacity: 0;
+}
+.input-background {
+  width: 0;
+  height: 0;
+  display: block;
+}
+.input-node-input {
+  padding: 5px 10px;
+  width: 100%;
+}
+.input-node-input[type=date] {
+  width: auto;
 }

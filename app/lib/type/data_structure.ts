@@ -1,4 +1,3 @@
-/*
 // Landing Page
 let Landing = {
     id: 'int',
@@ -249,4 +248,3 @@ let TextImageTemplate = {
         TextButtonBlock,
     ]
 };
-*/
