@@ -17,7 +17,7 @@ export const dateFormat = (dateString: string): string => {
     return (new Date(dateString)).toLocaleDateString();
 }
 
-export const getFileContent = (file: any): Promise<string | ArrayBuffer | null> => {
+export const getFileContent = (file: Blob): Promise<string | ArrayBuffer | null> => {
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
         reader.addEventListener(

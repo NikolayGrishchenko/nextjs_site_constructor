@@ -1,4 +1,4 @@
-import { ButtonNodeType, ColumnNodeType, getButtonNodeDefault, getColumnNodeDefault, getMediaNodeDefault, getTextNodeDefault, getTitleNodeDefault, MediaNodeType, TextNodeType, TitleNodeType } from "./node";
+import { ButtonNodeType, ColumnNodeType, getButtonNodeDefault, getColumnNodeDefault, getListNodeDefault, getMediaNodeDefault, getTextNodeDefault, getTitleNodeDefault, ListNodeType, MediaNodeType, TextNodeType, TitleNodeType } from "./node";
 
 export type HeaderBlockType = {
     show: boolean,
@@ -74,6 +74,22 @@ export const getMediaBlockDefault = (): MediaBlockType => {
             getMediaNodeDefault(),
             getMediaNodeDefault(),
         ],
+    };
+}
+
+export type ListBlockType = {
+    show: boolean,
+    background: string,
+    title: TitleNodeType,
+    list: ListNodeType,
+};
+
+export const getListBlockDefault = (): ListBlockType => {
+    return {
+        show: true,
+        background: '',
+        title: getTitleNodeDefault(),
+        list: getListNodeDefault(),
     };
 }
 

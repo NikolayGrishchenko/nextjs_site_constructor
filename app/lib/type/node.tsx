@@ -71,3 +71,17 @@ export const getMediaNodeDefault = (): MediaNodeType => {
         content: '',
     };
 }
+
+export type ListNodeType = {
+    type: string,
+    color: string,
+    items: string[],
+};
+
+export const getListNodeDefault = (): ListNodeType => {
+    return {
+        type: 'ordered',
+        color: '#000000',
+        items: [''],
+    };
+}

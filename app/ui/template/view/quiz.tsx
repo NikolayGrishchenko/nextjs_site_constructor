@@ -5,6 +5,7 @@ import HeaderBlockView from "../../block/view/header";
 import ColumnsBlockView from "../../block/view/columns";
 import SectionBlockView from "../../block/view/section";
 import MediaBlockView from "../../block/view/media";
+import ListBlockView from "../../block/view/list";
 import TitleButtonBlockView from "../../block/view/title_button";
 import TextImageBlockView from "../../block/view/text_image";
 
@@ -33,6 +34,11 @@ export default function QuizTemplateView(props: {
             { data.media.show && (
                 <div className="col-12">
                     <MediaBlockView data={data.media} />
+                </div>
+            )}
+            { data.list.show && (
+                <div className="col-12">
+                    <ListBlockView data={data.list} />
                 </div>
             )}
             { data.title_button.show && (

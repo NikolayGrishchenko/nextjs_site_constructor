@@ -4,7 +4,8 @@ import HeaderBlock from "../block/header";
 import ColumnsBlock from "../block/columns";
 import SectionBlock from "../block/section";
 import MediaBlock from "../block/media";
-import { ColumnsBlockType, HeaderBlockType, MediaBlockType, SectionBlockType, TitleButtonBlockType } from "@/app/lib/type/block";
+import ListBlock from "../block/list";
+import { ColumnsBlockType, HeaderBlockType, ListBlockType, MediaBlockType, SectionBlockType, TitleButtonBlockType } from "@/app/lib/type/block";
 import { EditorEventType } from "@/app/lib/type/editor";
 import { QuizTemplateType } from "@/app/lib/type/template";
 import TitleButtonBlock from "../block/title_button";
@@ -46,6 +47,13 @@ export default function QuizTemplate(props: {
         });
     }
 
+    function handleChangeListData(listData: ListBlockType) {
+        props.onChangeData({
+            ...data,
+            list: listData,
+        });
+    }
+
     function handleChangeTitleButtonData(titleButtonData: TitleButtonBlockType) {
         props.onChangeData({
             ...data,
@@ -73,6 +81,9 @@ export default function QuizTemplate(props: {
             </div>
             <div className="col-12">
                 <MediaBlock data={data.media} editorEvent={props.editorEvent} onChangeEditor={props.onChangeEditor} onChangeData={handleChangeMediaData} />
+            </div>
+            <div className="col-12">
+                <ListBlock data={data.list} editorEvent={props.editorEvent} onChangeEditor={props.onChangeEditor} onChangeData={handleChangeListData} />
             </div>
             <div className="col-12">
                 <TitleButtonBlock data={data.title_button} editorEvent={props.editorEvent} onChangeEditor={props.onChangeEditor} onChangeData={handleChangeTitleButtonData} />
