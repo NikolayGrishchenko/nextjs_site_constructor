@@ -3,6 +3,7 @@
 import { MediaBlockType } from "@/app/lib/type/block";
 import MediaNodeView from "../../node/view/media";
 import TitleNodeView from "../../node/view/title";
+import { buildStyleBlock } from "@/app/lib/util";
 
 
 export default function MediaBlockView(props: {
@@ -10,12 +11,7 @@ export default function MediaBlockView(props: {
 }) {
     const data = props.data;
 
-    let style:{
-        backgroundImage?: string,
-    } = {};
-    if (data.background) {
-        style.backgroundImage = 'url(' + data.background + ')';
-    }
+    let style = buildStyleBlock(data);
 
     let dataFilled = data.items.filter(item => item.content.length > 0);
     let colSize = '12';

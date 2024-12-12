@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { EditorEventType, EditorType } from "@/app/lib/type/editor";
 import { MediaBlockType } from "@/app/lib/type/block";
 import MediaNode from "../node/media";
+import { buildStyleBlock } from "@/app/lib/util";
 
 
 export default function MediaBlock(props: {
@@ -18,12 +19,7 @@ export default function MediaBlock(props: {
 
     const [isActiveEditor, setIsActiveEditor] = useState(false);
 
-    let style:{
-        backgroundImage?: string,
-    } = {};
-    if (data.background) {
-        style.backgroundImage = 'url(' + data.background + ')';
-    }
+    let style = buildStyleBlock(data);
 
     const wrapperRef = useRef<any>(null);
     useEffect(() => {

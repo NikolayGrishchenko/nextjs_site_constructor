@@ -1,6 +1,8 @@
 import {
     ColumnsBlockType,
+    FormBlockType,
     getColumnsBlockDefault,
+    getFormBlockDefault,
     getHeaderBlockDefault,
     getListBlockDefault,
     getMediaBlockDefault,
@@ -23,6 +25,7 @@ export type QuizTemplateType = {
     list: ListBlockType,
     title_button: TitleButtonBlockType,
     text_image: TextImageBlockType,
+    form: FormBlockType,
 };
 
 export const getQuizTemplateDefault = (): QuizTemplateType => {
@@ -34,5 +37,6 @@ export const getQuizTemplateDefault = (): QuizTemplateType => {
         list: getListBlockDefault(),
         title_button: getTitleButtonBlockDefault(),
         text_image: getTextImageBlockDefault(),
+        form: getFormBlockDefault(),
     };
 }

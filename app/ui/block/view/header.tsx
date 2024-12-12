@@ -4,18 +4,14 @@ import { HeaderBlockType } from "@/app/lib/type/block";
 import TitleNodeView from "../../node/view/title";
 import TextNodeView from "../../node/view/text";
 import ButtonNodeView from "../../node/view/button";
+import { buildStyleBlock } from "@/app/lib/util";
 
 export default function HeaderBlockView(props: {
     data: HeaderBlockType,
 }) {
     const data = props.data;
 
-    let style:{
-        backgroundImage?: string,
-    } = {};
-    if (data.background) {
-        style.backgroundImage = 'url(' + data.background + ')';
-    }
+    let style = buildStyleBlock(data);
 
     return (
         <>

@@ -5,7 +5,8 @@ import ColumnsBlock from "../block/columns";
 import SectionBlock from "../block/section";
 import MediaBlock from "../block/media";
 import ListBlock from "../block/list";
-import { ColumnsBlockType, HeaderBlockType, ListBlockType, MediaBlockType, SectionBlockType, TitleButtonBlockType } from "@/app/lib/type/block";
+import FormBlock from "../block/form";
+import { ColumnsBlockType, FormBlockType, HeaderBlockType, ListBlockType, MediaBlockType, SectionBlockType, TitleButtonBlockType } from "@/app/lib/type/block";
 import { EditorEventType } from "@/app/lib/type/editor";
 import { QuizTemplateType } from "@/app/lib/type/template";
 import TitleButtonBlock from "../block/title_button";
@@ -68,6 +69,13 @@ export default function QuizTemplate(props: {
         });
     }
 
+    function handleChangeFormData(formData: FormBlockType) {
+        props.onChangeData({
+            ...data,
+            form: formData,
+        });
+    }
+
     return (
         <div className="row quiz-template">
             <div className="col-12">
@@ -90,6 +98,9 @@ export default function QuizTemplate(props: {
             </div>
             <div className="col-12">
                 <TextImageBlock data={data.text_image} editorEvent={props.editorEvent} onChangeEditor={props.onChangeEditor} onChangeData={handleChangeTextImageData} />
+            </div>
+            <div className="col-12">
+                <FormBlock data={data.form} editorEvent={props.editorEvent} onChangeEditor={props.onChangeEditor} onChangeData={handleChangeFormData} />
             </div>
         </div>
     );

@@ -6,6 +6,7 @@ import ListNode from "../node/list";
 import { useEffect, useRef, useState } from "react";
 import { EditorEventType, EditorType } from "@/app/lib/type/editor";
 import { ListBlockType } from "@/app/lib/type/block";
+import { buildStyleBlock } from "@/app/lib/util";
 
 
 export default function ListBlock(props: {
@@ -18,12 +19,7 @@ export default function ListBlock(props: {
 
     const [isActiveEditor, setIsActiveEditor] = useState(false);
 
-    let style:{
-        backgroundImage?: string,
-    } = {};
-    if (data.background) {
-        style.backgroundImage = 'url(' + data.background + ')';
-    }
+    let style = buildStyleBlock(data);
 
     const wrapperRef = useRef<any>(null);
     useEffect(() => {

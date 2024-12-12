@@ -3,18 +3,14 @@
 import { ListBlockType } from "@/app/lib/type/block";
 import TitleNodeView from "../../node/view/title";
 import ListNodeView from "../../node/view/list";
+import { buildStyleBlock } from "@/app/lib/util";
 
 export default function ListBlockView(props: {
     data: ListBlockType,
 }) {
     const data = props.data;
 
-    let style:{
-        backgroundImage?: string,
-    } = {};
-    if (data.background) {
-        style.backgroundImage = 'url(' + data.background + ')';
-    }
+    let style = buildStyleBlock(data);
 
     return (
         <>

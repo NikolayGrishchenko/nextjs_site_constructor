@@ -1,7 +1,7 @@
 'use client';
 
 import { TextNodeType } from "@/app/lib/type/node";
-import { buildClass, buildStyle } from "@/app/lib/util";
+import { buildClass, buildStyleNode } from "@/app/lib/util";
 
 export default function TextNodeView(props: {
     data: TextNodeType,
@@ -13,7 +13,7 @@ export default function TextNodeView(props: {
         textHtml = data.text.replaceAll("\n", "<br/>");
     }
 
-    let style = buildStyle(data);
+    let style = buildStyleNode(data);
     let className = buildClass(data);
 
     return (

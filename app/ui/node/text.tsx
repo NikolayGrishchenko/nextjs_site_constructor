@@ -2,7 +2,7 @@
 
 import { EditorEventType } from "@/app/lib/type/editor";
 import { TextNodeType } from "@/app/lib/type/node";
-import { buildClass, buildStyle } from "@/app/lib/util";
+import { buildClass, buildStyleNode } from "@/app/lib/util";
 import { useEffect, useRef, useState } from "react";
 
 export default function TextNode(props: {
@@ -66,7 +66,7 @@ export default function TextNode(props: {
         textHtml = data.text.replaceAll("\n", "<br/>");
     }
 
-    let style = buildStyle(data);
+    let style = buildStyleNode(data);
     let className = buildClass(data);
 
     function handleClickText(e: any) {

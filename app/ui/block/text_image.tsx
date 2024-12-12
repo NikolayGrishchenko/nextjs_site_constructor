@@ -7,6 +7,7 @@ import MediaNode from "../node/media";
 import { useEffect, useRef, useState } from "react";
 import { EditorEventType, EditorType } from "@/app/lib/type/editor";
 import { TextImageBlockType } from "@/app/lib/type/block";
+import { buildStyleBlock } from "@/app/lib/util";
 
 
 export default function TextImageBlock(props: {
@@ -19,12 +20,7 @@ export default function TextImageBlock(props: {
 
     const [isActiveEditor, setIsActiveEditor] = useState(false);
 
-    let style:{
-        backgroundImage?: string,
-    } = {};
-    if (data.background) {
-        style.backgroundImage = 'url(' + data.background + ')';
-    }
+    let style = buildStyleBlock(data);
 
     const wrapperRef = useRef<any>(null);
     useEffect(() => {

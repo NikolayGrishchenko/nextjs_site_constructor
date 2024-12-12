@@ -6,6 +6,7 @@ import TitleNode from "../node/title";
 import { useEffect, useRef, useState } from "react";
 import { EditorEventType, EditorType } from "@/app/lib/type/editor";
 import { TitleButtonBlockType } from "@/app/lib/type/block";
+import { buildStyleBlock } from "@/app/lib/util";
 
 
 export default function TitleButtonBlock(props: {
@@ -18,12 +19,7 @@ export default function TitleButtonBlock(props: {
 
     const [isActiveEditor, setIsActiveEditor] = useState(false);
 
-    let style:{
-        backgroundImage?: string,
-    } = {};
-    if (data.background) {
-        style.backgroundImage = 'url(' + data.background + ')';
-    }
+    let style = buildStyleBlock(data);
 
     const wrapperRef = useRef<any>(null);
     useEffect(() => {

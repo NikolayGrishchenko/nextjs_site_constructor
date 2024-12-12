@@ -2,6 +2,7 @@
 
 import { ColumnsBlockType } from "@/app/lib/type/block";
 import ColumnNodeView from "../../node/view/column";
+import { buildStyleBlock } from "@/app/lib/util";
 
 
 export default function ColumnsBlockView(props: {
@@ -9,12 +10,7 @@ export default function ColumnsBlockView(props: {
 }) {
     const data = props.data;
 
-    let style:{
-        backgroundImage?: string,
-    } = {};
-    if (data.background) {
-        style.backgroundImage = 'url(' + data.background + ')';
-    }
+    let style = buildStyleBlock(data);
 
     return (
         <>

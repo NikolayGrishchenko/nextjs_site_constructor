@@ -8,6 +8,7 @@ import MediaBlockView from "../../block/view/media";
 import ListBlockView from "../../block/view/list";
 import TitleButtonBlockView from "../../block/view/title_button";
 import TextImageBlockView from "../../block/view/text_image";
+import FormBlockView from "../../block/view/form";
 
 export default function QuizTemplateView(props: {
     data: QuizTemplateType,
@@ -49,6 +50,11 @@ export default function QuizTemplateView(props: {
             { data.text_image.show && (
                 <div className="col-12">
                     <TextImageBlockView data={data.text_image} />
+                </div>
+            )}
+            { data.form.show && (
+                <div className="col-12">
+                    <FormBlockView data={data.form} />
                 </div>
             )}
         </div>

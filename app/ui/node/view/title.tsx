@@ -1,14 +1,14 @@
 'use client';
 
 import { TitleNodeType } from "@/app/lib/type/node";
-import { buildClass, buildStyle } from "@/app/lib/util";
+import { buildClass, buildStyleNode } from "@/app/lib/util";
 
 export default function TitleNodeView(props: {
     data: TitleNodeType,
 }) {
     const data = props.data;
 
-    let style = buildStyle(data);
+    let style = buildStyleNode(data);
     let className = buildClass(data);
 
     return (

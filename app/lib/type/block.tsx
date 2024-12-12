@@ -126,3 +126,27 @@ export const getTextImageBlockDefault = (): TextImageBlockType => {
         media: getMediaNodeDefault(),
     };
 }
+
+export type FormBlockType = {
+    show: boolean,
+    background: string,
+    title: TitleNodeType,
+    settings: string[],
+    button: ButtonNodeType,
+};
+
+export const getFormBlockDefault = (): FormBlockType => {
+    return {
+        show: true,
+        background: '',
+        title: getTitleNodeDefault(),
+        settings: [
+            'name',
+            'birthday',
+            'email',
+            'phone',
+            'position',
+        ],
+        button: getButtonNodeDefault(),
+    };
+}

@@ -1,9 +1,10 @@
 'use client';
 
-import { TextImageBlockType, TitleButtonBlockType } from "@/app/lib/type/block";
+import { TextImageBlockType } from "@/app/lib/type/block";
 import TitleNodeView from "../../node/view/title";
 import TextNodeView from "../../node/view/text";
 import MediaNodeView from "../../node/view/media";
+import { buildStyleBlock } from "@/app/lib/util";
 
 
 export default function TextImageBlockView(props: {
@@ -11,12 +12,7 @@ export default function TextImageBlockView(props: {
 }) {
     const data = props.data;
 
-    let style:{
-        backgroundImage?: string,
-    } = {};
-    if (data.background) {
-        style.backgroundImage = 'url(' + data.background + ')';
-    }
+    let style = buildStyleBlock(data);
 
     return (
         <div className='row block title-button-block' style={style}>

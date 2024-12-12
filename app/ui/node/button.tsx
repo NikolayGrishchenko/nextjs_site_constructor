@@ -2,7 +2,7 @@
 
 import { EditorEventType } from "@/app/lib/type/editor";
 import { ButtonNodeType } from "@/app/lib/type/node";
-import { buildClass, buildStyle } from "@/app/lib/util";
+import { buildClass, buildStyleNode } from "@/app/lib/util";
 import { useEffect, useRef, useState } from "react";
 
 export default function ButtonNode(props: {
@@ -54,7 +54,7 @@ export default function ButtonNode(props: {
         }
     }, [props.editorEvent]);
 
-    let style = buildStyle(data);
+    let style = buildStyleNode(data);
     let className = buildClass(data);
 
     function handleClickText(e: any) {

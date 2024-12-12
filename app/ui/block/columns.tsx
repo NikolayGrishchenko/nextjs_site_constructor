@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { EditorEventType, EditorType } from "@/app/lib/type/editor";
 import { ColumnsBlockType } from "@/app/lib/type/block";
 import ColumnNode from "../node/column";
+import { buildStyleBlock } from "@/app/lib/util";
 
 
 export default function ColumnsBlock(props: {
@@ -17,12 +18,7 @@ export default function ColumnsBlock(props: {
 
     const [isActiveEditor, setIsActiveEditor] = useState(false);
 
-    let style:{
-        backgroundImage?: string,
-    } = {};
-    if (data.background) {
-        style.backgroundImage = 'url(' + data.background + ')';
-    }
+    let style = buildStyleBlock(data);
 
     const wrapperRef = useRef<any>(null);
     useEffect(() => {

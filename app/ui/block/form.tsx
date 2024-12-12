@@ -1,17 +1,16 @@
 'use client';
 
-import { ButtonNodeType, TextNodeType, TitleNodeType } from "@/app/lib/type/node";
-import TextNode from "../node/text";
-import TitleNode from "../node/title";
+import { ButtonNodeType, TitleNodeType } from "@/app/lib/type/node";
 import ButtonNode from "../node/button";
+import TitleNode from "../node/title";
 import { useEffect, useRef, useState } from "react";
 import { EditorEventType, EditorType } from "@/app/lib/type/editor";
-import { HeaderBlockType } from "@/app/lib/type/block";
+import { FormBlockType } from "@/app/lib/type/block";
 import { buildStyleBlock } from "@/app/lib/util";
 
 
-export default function HeaderBlock(props: {
-    data: HeaderBlockType,
+export default function FormBlock(props: {
+    data: FormBlockType,
     editorEvent: EditorEventType | null,
     onChangeData: Function,
     onChangeEditor: Function,
@@ -19,6 +18,14 @@ export default function HeaderBlock(props: {
     const data = props.data;
 
     const [isActiveEditor, setIsActiveEditor] = useState(false);
+
+    const mapSettings = {
+        name: 'Имя',
+        birthday: 'Дата рождения',
+        email: 'E-mail',
+        phone: 'Телефон',
+        position: 'Какую должность хочешь получить',
+    };
 
     let style = buildStyleBlock(data);
 
@@ -62,24 +69,30 @@ export default function HeaderBlock(props: {
         });
     }
 
-    function handleChangeTextData(textData: TextNodeType) {
+    function handleChangeButtonData(buttonData: ButtonNodeType) {
         props.onChangeData({
             ...data,
-            text: textData,
+            button: buttonData,
         });
     }
 
-    function handleChangeButtonData(buttonData: ButtonNodeType, index: number) {
-        props.onChangeData({
-            ...data,
-            buttons: data.buttons.map((button, i) => {
-                if (i == index) {
-                    return buttonData;
-                } else {
-                    return button;
-                }
-            }),
-        });
+    function handleChangeSetting(e: any) {
+        let value = e.target.value;
+
+        if (e.target.checked) {
+            props.onChangeData({
+                ...data,
+                settings: [
+                    ...data.settings,
+                    value
+                ],
+            });
+        } else {
+            props.onChangeData({
+                ...data,
+                settings: data.settings.filter(setting => setting != value),
+            });
+        }
     }
 
     function handleClickBlock(e: any) {
@@ -101,22 +114,31 @@ export default function HeaderBlock(props: {
     }
 
     return (
-        <div ref={wrapperRef} className={'row block header-block' + (data.show ? '' : ' hidden')} style={style} onClick={handleClickBlock}>
+        <div ref={wrapperRef} className={'row block form-block' + (data.show ? '' : ' hidden')} style={style} onClick={handleClickBlock}>
             <div className="col-12 mt-4 mb-4">
                 <TitleNode data={data.title} editorEvent={props.editorEvent} onChangeEditor={handleChangeEditor} onChangeData={handleChangeTitleData} />
             </div>
-            <div className="col-12 mb-4">
-                <TextNode data={data.text} editorEvent={props.editorEvent} onChangeEditor={handleChangeEditor} onChangeData={handleChangeTextData} />
+            <div className="col-12 mt-4 mb-4">
+                <div className="row">
+                    {(() => {
+                        let settings: React.JSX.Element[] = [];
+                        let settingCode: keyof typeof mapSettings;
+                        for (settingCode in mapSettings) {
+                            settings.push(
+                                <div key={settingCode} className="col-12">
+                                    <label>
+                                        <input type="checkbox" className="d-inline-block me-1" value={settingCode} checked={data.settings.includes(settingCode)} onChange={handleChangeSetting} />
+                                        <span>{ mapSettings[settingCode] }</span>
+                                    </label>
+                                </div>
+                            );
+                        }
+                        return settings;
+                    })()}
+                </div>
             </div>
             <div className="col-12 mb-4">
-                <div className="row">
-                    <div className='col-6'>
-                        <ButtonNode data={data.buttons[0]} editorEvent={props.editorEvent} onChangeEditor={handleChangeEditor} onChangeData={(buttonData: ButtonNodeType) => { handleChangeButtonData(buttonData, 0)}} />
-                    </div>
-                    <div className='col-6'>
-                        <ButtonNode data={data.buttons[1]} editorEvent={props.editorEvent} onChangeEditor={handleChangeEditor} onChangeData={(buttonData: ButtonNodeType) => { handleChangeButtonData(buttonData, 1)}} />
-                    </div>
-                </div>
+                <ButtonNode data={data.button} editorEvent={props.editorEvent} onChangeEditor={handleChangeEditor} onChangeData={handleChangeButtonData} />
             </div>
         </div>
     );

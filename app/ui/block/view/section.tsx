@@ -3,6 +3,7 @@
 import { SectionBlockType } from "@/app/lib/type/block";
 import TitleNodeView from "../../node/view/title";
 import TextNodeView from "../../node/view/text";
+import { buildStyleBlock } from "@/app/lib/util";
 
 
 export default function SectionBlockView(props: {
@@ -10,12 +11,7 @@ export default function SectionBlockView(props: {
 }) {
     const data = props.data;
 
-    let style:{
-        backgroundImage?: string,
-    } = {};
-    if (data.background) {
-        style.backgroundImage = 'url(' + data.background + ')';
-    }
+    let style = buildStyleBlock(data);
 
     return (
         <>

@@ -85,3 +85,21 @@ export const getListNodeDefault = (): ListNodeType => {
         items: [''],
     };
 }
+
+export type InputNodeType = {
+    title: string,
+    value: string,
+    name: string,
+    type: string,
+    required: boolean,
+};
+
+export const getInputNodeDefault = (): InputNodeType => {
+    return {
+        title: '',
+        value: '',
+        name: '',
+        type: 'text',
+        required: false,
+    };
+}
