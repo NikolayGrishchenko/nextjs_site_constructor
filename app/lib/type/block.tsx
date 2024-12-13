@@ -1,4 +1,4 @@
-import { ButtonNodeType, ColumnNodeType, getButtonNodeDefault, getColumnNodeDefault, getListNodeDefault, getMediaNodeDefault, getTextNodeDefault, getTitleNodeDefault, ListNodeType, MediaNodeType, TextNodeType, TitleNodeType } from "./node";
+import { ButtonNodeType, ColumnNodeType, getButtonNodeDefault, getColumnNodeDefault, getListNodeDefault, getMediaNodeDefault, getSocialNodeDefault, getTextNodeDefault, getTitleNodeDefault, ListNodeType, MediaNodeType, SocialNodeType, TextNodeType, TitleNodeType } from "./node";
 
 export type HeaderBlockType = {
     show: boolean,
@@ -148,5 +148,28 @@ export const getFormBlockDefault = (): FormBlockType => {
             'position',
         ],
         button: getButtonNodeDefault(),
+    };
+}
+
+export type SocialBlockType = {
+    show: boolean,
+    background: string,
+    items: SocialNodeType[],
+};
+
+export const getSocialBlockDefault = (): SocialBlockType => {
+    return {
+        show: true,
+        background: '',
+        items: [
+            getSocialNodeDefault(),
+            getSocialNodeDefault(),
+            getSocialNodeDefault(),
+            getSocialNodeDefault(),
+            getSocialNodeDefault(),
+            getSocialNodeDefault(),
+            getSocialNodeDefault(),
+            getSocialNodeDefault(),
+        ]
     };
 }

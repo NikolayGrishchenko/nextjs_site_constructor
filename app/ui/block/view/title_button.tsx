@@ -14,13 +14,24 @@ export default function TitleButtonBlockView(props: {
     let style = buildStyleBlock(data);
 
     return (
-        <div className='row block title-button-block' style={style}>
-            <div className="col-8 mt-4 mb-4 d-flex align-items-center">
-                <TitleNodeView data={data.title} />
-            </div>
-            <div className="col-4 mt-4 mb-4 d-flex align-items-center">
-                <ButtonNodeView data={data.button} />
-            </div>
-        </div>
+        <>
+            { data.show && (
+                data.title.text.length > 0 ||
+                data.button.url.length > 0
+            ) && (
+                <div className='row block title-button-block' style={style}>
+                    { data.title.text.length > 0 && (
+                        <div className="col-8 mt-4 mb-4 d-flex align-items-center">
+                            <TitleNodeView data={data.title} />
+                        </div>
+                    )}
+                    { data.button.url.length > 0 && (
+                        <div className="col-4 mt-4 mb-4 d-flex align-items-center">
+                            <ButtonNodeView data={data.button} />
+                        </div>
+                    )}
+                </div>
+            )}
+        </>
     );
 }

@@ -85,7 +85,7 @@ export default function ColumnsBlock(props: {
     }
 
     return (
-        <div ref={wrapperRef} className={'row block columns-block' + (data.show ? '' : ' hidden')} style={style} onClick={handleClickBlock}>
+        <div ref={wrapperRef} className={'row block block-edit columns-block' + (data.show ? '' : ' hidden')} style={style} onClick={handleClickBlock}>
             <div className="col-12">
                 <div className="row">
                     <div className='col-6'>

@@ -103,3 +103,15 @@ export const getInputNodeDefault = (): InputNodeType => {
         required: false,
     };
 }
+
+export type SocialNodeType = {
+    image: string,
+    url: string,
+};
+
+export const getSocialNodeDefault = (): SocialNodeType => {
+    return {
+        image: '',
+        url: '',
+    };
+}

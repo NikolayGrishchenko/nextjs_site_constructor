@@ -114,7 +114,7 @@ export default function FormBlock(props: {
     }
 
     return (
-        <div ref={wrapperRef} className={'row block form-block' + (data.show ? '' : ' hidden')} style={style} onClick={handleClickBlock}>
+        <div ref={wrapperRef} className={'row block block-edit form-block' + (data.show ? '' : ' hidden')} style={style} onClick={handleClickBlock}>
             <div className="col-12 mt-4 mb-4">
                 <TitleNode data={data.title} editorEvent={props.editorEvent} onChangeEditor={handleChangeEditor} onChangeData={handleChangeTitleData} />
             </div>

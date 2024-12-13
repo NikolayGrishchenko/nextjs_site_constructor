@@ -95,7 +95,7 @@ export default function TextImageBlock(props: {
     }
 
     return (
-        <div ref={wrapperRef} className={'row block text-image-block' + (data.show ? '' : ' hidden')} style={style} onClick={handleClickBlock}>
+        <div ref={wrapperRef} className={'row block block-edit text-image-block' + (data.show ? '' : ' hidden')} style={style} onClick={handleClickBlock}>
             <div className="col-7 mt-4 mb-4">
                 <div className="row">
                     <div className="col-12 mb-2">

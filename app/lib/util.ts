@@ -1,4 +1,4 @@
-import { ColumnsBlockType, FormBlockType, HeaderBlockType, ListBlockType, MediaBlockType, SectionBlockType, TextImageBlockType, TitleButtonBlockType } from "./type/block";
+import { ColumnsBlockType, FormBlockType, HeaderBlockType, ListBlockType, MediaBlockType, SectionBlockType, SocialBlockType, TextImageBlockType, TitleButtonBlockType } from "./type/block";
 import { mapLandingTemplate } from "./type/landing";
 import { ButtonNodeType, TextNodeType, TitleNodeType } from "./type/node";
 
@@ -43,7 +43,7 @@ export const buildStyleNode = (data: TitleNodeType | TextNodeType | ButtonNodeTy
     return style;
 }
 
-export const buildStyleBlock = (data: HeaderBlockType | ColumnsBlockType | SectionBlockType | MediaBlockType | ListBlockType | TitleButtonBlockType | TextImageBlockType | FormBlockType): object => {
+export const buildStyleBlock = (data: HeaderBlockType | ColumnsBlockType | SectionBlockType | MediaBlockType | ListBlockType | TitleButtonBlockType | TextImageBlockType | FormBlockType | SocialBlockType): object => {
     let style:{
         backgroundImage?: string,
     } = {};

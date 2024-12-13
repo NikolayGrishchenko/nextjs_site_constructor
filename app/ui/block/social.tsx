@@ -1,16 +1,15 @@
 'use client';
 
-import { ButtonNodeType, TitleNodeType } from "@/app/lib/type/node";
-import ButtonNode from "../node/button";
-import TitleNode from "../node/title";
+import { SocialNodeType } from "@/app/lib/type/node";
 import { useEffect, useRef, useState } from "react";
 import { EditorEventType, EditorType } from "@/app/lib/type/editor";
-import { TitleButtonBlockType } from "@/app/lib/type/block";
+import { SocialBlockType } from "@/app/lib/type/block";
+import SocialNode from "../node/social";
 import { buildStyleBlock } from "@/app/lib/util";
 
 
-export default function TitleButtonBlock(props: {
-    data: TitleButtonBlockType,
+export default function SocailBlock(props: {
+    data: SocialBlockType,
     editorEvent: EditorEventType | null,
     onChangeData: Function,
     onChangeEditor: Function,
@@ -53,18 +52,17 @@ export default function TitleButtonBlock(props: {
             }
         }
     }, [props.editorEvent]);
-    
-    function handleChangeTitleData(titleData: TitleNodeType) {
-        props.onChangeData({
-            ...data,
-            title: titleData,
-        });
-    }
 
-    function handleChangeButtonData(buttonData: ButtonNodeType) {
+    function handleChangeSocialData(socialData: SocialNodeType, index: number) {
         props.onChangeData({
             ...data,
-            button: buttonData,
+            items: data.items.map((item, i) => {
+                if (i == index) {
+                    return socialData;
+                } else {
+                    return item;
+                }
+            }),
         });
     }
 
@@ -87,12 +85,17 @@ export default function TitleButtonBlock(props: {
     }
 
     return (
-        <div ref={wrapperRef} className={'row block block-edit title-button-block' + (data.show ? '' : ' hidden')} style={style} onClick={handleClickBlock}>
-            <div className="col-8 mt-4 mb-4">
-                <TitleNode data={data.title} editorEvent={props.editorEvent} onChangeEditor={handleChangeEditor} onChangeData={handleChangeTitleData} />
-            </div>
-            <div className="col-4 mb-4">
-                <ButtonNode data={data.button} editorEvent={props.editorEvent} onChangeEditor={handleChangeEditor} onChangeData={handleChangeButtonData} />
+        <div ref={wrapperRef} className={'row block block-edit social-block' + (data.show ? '' : ' hidden')} style={style} onClick={handleClickBlock}>
+            <div className="col-12 mt-4 mb-4">
+                <div className="row">
+                    { data.items.map((item, index) => {
+                        return (
+                            <div key={index} className="col-12">
+                                <SocialNode data={item} editorEvent={props.editorEvent} onChangeEditor={handleChangeEditor} onChangeData={(socialData: SocialNodeType) => { handleChangeSocialData(socialData, index)}} />
+                            </div>
+                        )
+                    }) }
+                </div>
             </div>
         </div>
     );

@@ -63,6 +63,9 @@
   background-size: cover;
   margin-bottom: 20px;
 }
+.block-edit {
+  background-color: #ffeaca;
+}
 .block.hidden {
   opacity: 0.2;
   filter: blur(2px);
