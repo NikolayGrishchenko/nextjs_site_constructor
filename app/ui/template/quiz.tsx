@@ -1,18 +1,19 @@
 'use client';
 
 import HeaderBlock from "../block/header";
-import ColumnsBlock from "../block/columns";
 import SectionBlock from "../block/section";
-import MediaBlock from "../block/media";
-import ListBlock from "../block/list";
-import FormBlock from "../block/form";
-import { ColumnsBlockType, FormBlockType, HeaderBlockType, ListBlockType, MediaBlockType, SectionBlockType, TitleButtonBlockType } from "@/app/lib/type/block";
+import { BlockType, ColumnsBlockType, FormBlockType, HeaderBlockType, ListBlockType, MediaBlockType, SectionBlockType, SocialBlockType, TextImageBlockType, TitleButtonBlockType } from "@/app/lib/type/block";
 import { EditorEventType } from "@/app/lib/type/editor";
 import { QuizTemplateType } from "@/app/lib/type/template";
+import SocialBlock from "../block/social";
 import TitleButtonBlock from "../block/title_button";
+import MediaBlock from "../block/media";
+import ListBlock from "../block/list";
+import ColumnsBlock from "../block/columns";
 import TextImageBlock from "../block/text_image";
+import FormBlock from "../block/form";
 
-export default function QuizTemplate(props: {
+export default function Template(props: {
     data: QuizTemplateType,
     onChangeEditor: Function,
     onChangeData: Function,
@@ -20,88 +21,53 @@ export default function QuizTemplate(props: {
 }) {
     const data = props.data;
 
-    function handleChangeHeaderData(headerData: HeaderBlockType) {
+    function handleChangeData(field: string, eventData: BlockType) {
         props.onChangeData({
             ...data,
-            header: headerData,
-        });
-    }
-
-    function handleChangeColumnsData(columnsData: ColumnsBlockType) {
-        props.onChangeData({
-            ...data,
-            columns: columnsData,
-        });
-    }
-
-    function handleChangeSectionData(sectionData: SectionBlockType) {
-        props.onChangeData({
-            ...data,
-            section: sectionData,
-        });
-    }
-
-    function handleChangeMediaData(mediaData: MediaBlockType) {
-        props.onChangeData({
-            ...data,
-            media: mediaData,
-        });
-    }
-
-    function handleChangeListData(listData: ListBlockType) {
-        props.onChangeData({
-            ...data,
-            list: listData,
-        });
-    }
-
-    function handleChangeTitleButtonData(titleButtonData: TitleButtonBlockType) {
-        props.onChangeData({
-            ...data,
-            title_button: titleButtonData,
-        });
-    }
-
-    function handleChangeTextImageData(textImageData: TitleButtonBlockType) {
-        props.onChangeData({
-            ...data,
-            text_image: textImageData,
-        });
-    }
-
-    function handleChangeFormData(formData: FormBlockType) {
-        props.onChangeData({
-            ...data,
-            form: formData,
+            [field]: eventData,
         });
     }
 
     return (
-        <div className="row quiz-template">
-            <div className="col-12">
-                <HeaderBlock data={data.header} editorEvent={props.editorEvent} onChangeEditor={props.onChangeEditor} onChangeData={handleChangeHeaderData} />
-            </div>
-            <div className="col-12">
-                <ColumnsBlock data={data.columns} editorEvent={props.editorEvent} onChangeEditor={props.onChangeEditor} onChangeData={handleChangeColumnsData} />
-            </div>
-            <div className="col-12">
-                <SectionBlock data={data.section} editorEvent={props.editorEvent} onChangeEditor={props.onChangeEditor} onChangeData={handleChangeSectionData} />
-            </div>
-            <div className="col-12">
-                <MediaBlock data={data.media} editorEvent={props.editorEvent} onChangeEditor={props.onChangeEditor} onChangeData={handleChangeMediaData} />
-            </div>
-            <div className="col-12">
-                <ListBlock data={data.list} editorEvent={props.editorEvent} onChangeEditor={props.onChangeEditor} onChangeData={handleChangeListData} />
-            </div>
-            <div className="col-12">
-                <TitleButtonBlock data={data.title_button} editorEvent={props.editorEvent} onChangeEditor={props.onChangeEditor} onChangeData={handleChangeTitleButtonData} />
-            </div>
-            <div className="col-12">
-                <TextImageBlock data={data.text_image} editorEvent={props.editorEvent} onChangeEditor={props.onChangeEditor} onChangeData={handleChangeTextImageData} />
-            </div>
-            <div className="col-12">
-                <FormBlock data={data.form} editorEvent={props.editorEvent} onChangeEditor={props.onChangeEditor} onChangeData={handleChangeFormData} />
-            </div>
+        <div className="row social-template">
+            {(() => {
+                let html: React.JSX.Element[] = [];
+                let key: keyof QuizTemplateType;
+                for (key in data) {
+                    let field = key;
+                    const element: BlockType = data[key];
+                    html.push(<div key={key} className="col-12">
+                        { element.type == 'header' && (
+                            <HeaderBlock data={element as HeaderBlockType} editorEvent={props.editorEvent} onChangeEditor={props.onChangeEditor} onChangeData={(data: BlockType) => {handleChangeData(field, data)}} />
+                        )}
+                        { element.type == 'columns' && (
+                            <ColumnsBlock data={element as ColumnsBlockType} editorEvent={props.editorEvent} onChangeEditor={props.onChangeEditor} onChangeData={(data: BlockType) => {handleChangeData(field, data)}} />
+                        )}
+                        { element.type == 'section' && (
+                            <SectionBlock data={element as SectionBlockType} editorEvent={props.editorEvent} onChangeEditor={props.onChangeEditor} onChangeData={(data: BlockType) => {handleChangeData(field, data)}} />
+                        )}
+                        { element.type == 'media' && (
+                            <MediaBlock data={element as MediaBlockType} editorEvent={props.editorEvent} onChangeEditor={props.onChangeEditor} onChangeData={(data: BlockType) => {handleChangeData(field, data)}} />
+                        )}
+                        { element.type == 'list' && (
+                            <ListBlock data={element as ListBlockType} editorEvent={props.editorEvent} onChangeEditor={props.onChangeEditor} onChangeData={(data: BlockType) => {handleChangeData(field, data)}} />
+                        )}
+                        { element.type == 'title_button' && (
+                            <TitleButtonBlock data={element as TitleButtonBlockType} editorEvent={props.editorEvent} onChangeEditor={props.onChangeEditor} onChangeData={(data: BlockType) => {handleChangeData(field, data)}} />
+                        )}
+                        { element.type == 'text_image' && (
+                            <TextImageBlock data={element as TextImageBlockType} editorEvent={props.editorEvent} onChangeEditor={props.onChangeEditor} onChangeData={(data: BlockType) => {handleChangeData(field, data)}} />
+                        )}
+                        { element.type == 'form' && (
+                            <FormBlock data={element as FormBlockType} editorEvent={props.editorEvent} onChangeEditor={props.onChangeEditor} onChangeData={(data: BlockType) => {handleChangeData(field, data)}} />
+                        )}
+                        { element.type == 'social' && (
+                            <SocialBlock data={element as SocialBlockType} editorEvent={props.editorEvent} onChangeEditor={props.onChangeEditor} onChangeData={(data: BlockType) => {handleChangeData(field, data)}} />
+                        )}
+                    </div>);
+                }
+                return html;
+            })()}
         </div>
     );
 }

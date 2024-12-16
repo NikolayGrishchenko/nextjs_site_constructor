@@ -1,62 +1,62 @@
 'use client';
 
+import { BlockType, ColumnsBlockType, FormBlockType, HeaderBlockType, ListBlockType, MediaBlockType, SectionBlockType, SocialBlockType, TextImageBlockType, TitleButtonBlockType } from "@/app/lib/type/block";
 import { QuizTemplateType } from "@/app/lib/type/template";
 import HeaderBlockView from "../../block/view/header";
-import ColumnsBlockView from "../../block/view/columns";
 import SectionBlockView from "../../block/view/section";
 import MediaBlockView from "../../block/view/media";
+import ColumnsBlockView from "../../block/view/columns";
 import ListBlockView from "../../block/view/list";
 import TitleButtonBlockView from "../../block/view/title_button";
 import TextImageBlockView from "../../block/view/text_image";
 import FormBlockView from "../../block/view/form";
-
+import SocialBlockView from "../../block/view/social";
 export default function QuizTemplateView(props: {
     data: QuizTemplateType,
 }) {
-    const data = props.data;
+    const data = props.data
 
     return (
         <div className="row quiz-template">
-            { data.header.show && (
-                <div className="col-12">
-                    <HeaderBlockView data={data.header} />
-                </div>
-            )}
-            { data.columns.show && (
-                <div className="col-12">
-                    <ColumnsBlockView data={data.columns} />
-                </div>
-            )}
-            { data.section.show && (
-                <div className="col-12">
-                    <SectionBlockView data={data.section} />
-                </div>
-            )}
-            { data.media.show && (
-                <div className="col-12">
-                    <MediaBlockView data={data.media} />
-                </div>
-            )}
-            { data.list.show && (
-                <div className="col-12">
-                    <ListBlockView data={data.list} />
-                </div>
-            )}
-            { data.title_button.show && (
-                <div className="col-12">
-                    <TitleButtonBlockView data={data.title_button} />
-                </div>
-            )}
-            { data.text_image.show && (
-                <div className="col-12">
-                    <TextImageBlockView data={data.text_image} />
-                </div>
-            )}
-            { data.form.show && (
-                <div className="col-12">
-                    <FormBlockView data={data.form} />
-                </div>
-            )}
+            {(() => {
+                let html: React.JSX.Element[] = [];
+                let key: keyof QuizTemplateType;
+                for (key in data) {
+                    const element: BlockType = data[key];
+                    if (element.show) {
+                        html.push(<div key={key} className="col-12">
+                            { element.type == 'header' && (
+                                <HeaderBlockView data={element as HeaderBlockType} />
+                            )}
+                            { element.type == 'columns' && (
+                                <ColumnsBlockView data={element as ColumnsBlockType} />
+                            )}
+                            { element.type == 'section' && (
+                                <SectionBlockView data={element as SectionBlockType} />
+                            )}
+                            { element.type == 'media' && (
+                                <MediaBlockView data={element as MediaBlockType} />
+                            )}
+                            { element.type == 'list' && (
+                                <ListBlockView data={element as ListBlockType} />
+                            )}
+                            { element.type == 'title_button' && (
+                                <TitleButtonBlockView data={element as TitleButtonBlockType} />
+                            )}
+                            { element.type == 'text_image' && (
+                                <TextImageBlockView data={element as TextImageBlockType} />
+                            )}
+                            { element.type == 'form' && (
+                                <FormBlockView data={element as FormBlockType} />
+                            )}
+                            { element.type == 'social' && (
+                                <SocialBlockView data={element as SocialBlockType} />
+                            )}
+                        </div>);
+                    }
+                }
+                return html;
+            })()}
         </div>
     );
 }
