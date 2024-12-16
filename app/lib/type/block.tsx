@@ -1,6 +1,22 @@
-import { ButtonNodeType, ColumnNodeType, getButtonNodeDefault, getColumnNodeDefault, getListNodeDefault, getMediaNodeDefault, getSocialNodeDefault, getTextNodeDefault, getTitleNodeDefault, ListNodeType, MediaNodeType, SocialNodeType, TextNodeType, TitleNodeType } from "./node";
+import {
+    ButtonNodeType,
+    ColumnNodeType,
+    getButtonNodeDefault,
+    getColumnNodeDefault,
+    getListNodeDefault,
+    getMediaNodeDefault,
+    getSocialNodeDefault,
+    getTextNodeDefault,
+    getTitleNodeDefault,
+    ListNodeType,
+    MediaNodeType,
+    SocialNodeType,
+    TextNodeType,
+    TitleNodeType
+} from "./node";
 
 export type HeaderBlockType = {
+    type: string,
     show: boolean,
     background: string,
     title: TitleNodeType,
@@ -8,8 +24,75 @@ export type HeaderBlockType = {
     buttons: ButtonNodeType[],
 };
 
+export type ColumnsBlockType = {
+    type: string,
+    show: boolean,
+    background: string,
+    items: ColumnNodeType[],
+};
+
+export type SectionBlockType = {
+    type: string,
+    show: boolean,
+    background: string,
+    title: TitleNodeType,
+    text: TextNodeType,
+};
+
+export type MediaBlockType = {
+    type: string,
+    show: boolean,
+    background: string,
+    title: TitleNodeType,
+    items: MediaNodeType[],
+};
+
+export type ListBlockType = {
+    type: string,
+    show: boolean,
+    background: string,
+    title: TitleNodeType,
+    list: ListNodeType,
+};
+
+export type TitleButtonBlockType = {
+    type: string,
+    show: boolean,
+    background: string,
+    title: TitleNodeType,
+    button: ButtonNodeType,
+};
+
+export type TextImageBlockType = {
+    type: string,
+    show: boolean,
+    background: string,
+    title: TitleNodeType,
+    text: TextNodeType,
+    media: MediaNodeType,
+};
+
+export type FormBlockType = {
+    type: string,
+    show: boolean,
+    background: string,
+    title: TitleNodeType,
+    settings: string[],
+    button: ButtonNodeType,
+};
+
+export type SocialBlockType = {
+    type: string,
+    show: boolean,
+    background: string,
+    items: SocialNodeType[],
+};
+
+export type BlockType = HeaderBlockType | ColumnsBlockType | SectionBlockType | MediaBlockType | ListBlockType | TitleButtonBlockType | TextImageBlockType | FormBlockType | SocialBlockType;
+
 export const getHeaderBlockDefault = (): HeaderBlockType => {
     return {
+        type: 'header',
         show: true,
         background: '',
         title: getTitleNodeDefault(),
@@ -21,14 +104,9 @@ export const getHeaderBlockDefault = (): HeaderBlockType => {
     };
 }
 
-export type ColumnsBlockType = {
-    show: boolean,
-    background: string,
-    items: ColumnNodeType[],
-};
-
 export const getColumnsBlockDefault = (): ColumnsBlockType => {
     return {
+        type: 'columns',
         show: true,
         background: '',
         items: [
@@ -38,15 +116,9 @@ export const getColumnsBlockDefault = (): ColumnsBlockType => {
     };
 }
 
-export type SectionBlockType = {
-    show: boolean,
-    background: string,
-    title: TitleNodeType,
-    text: TextNodeType,
-};
-
 export const getSectionBlockDefault = (): SectionBlockType => {
     return {
+        type: 'section',
         show: true,
         background: '',
         title: getTitleNodeDefault(),
@@ -54,15 +126,9 @@ export const getSectionBlockDefault = (): SectionBlockType => {
     };
 }
 
-export type MediaBlockType = {
-    show: boolean,
-    background: string,
-    title: TitleNodeType,
-    items: MediaNodeType[],
-};
-
 export const getMediaBlockDefault = (): MediaBlockType => {
     return {
+        type: 'media',
         show: true,
         background: '',
         title: getTitleNodeDefault(),
@@ -77,15 +143,9 @@ export const getMediaBlockDefault = (): MediaBlockType => {
     };
 }
 
-export type ListBlockType = {
-    show: boolean,
-    background: string,
-    title: TitleNodeType,
-    list: ListNodeType,
-};
-
 export const getListBlockDefault = (): ListBlockType => {
     return {
+        type: 'list',
         show: true,
         background: '',
         title: getTitleNodeDefault(),
@@ -93,15 +153,9 @@ export const getListBlockDefault = (): ListBlockType => {
     };
 }
 
-export type TitleButtonBlockType = {
-    show: boolean,
-    background: string,
-    title: TitleNodeType,
-    button: ButtonNodeType,
-};
-
 export const getTitleButtonBlockDefault = (): TitleButtonBlockType => {
     return {
+        type: 'title_button',
         show: true,
         background: '',
         title: getTitleNodeDefault(),
@@ -109,16 +163,9 @@ export const getTitleButtonBlockDefault = (): TitleButtonBlockType => {
     };
 }
 
-export type TextImageBlockType = {
-    show: boolean,
-    background: string,
-    title: TitleNodeType,
-    text: TextNodeType,
-    media: MediaNodeType,
-};
-
 export const getTextImageBlockDefault = (): TextImageBlockType => {
     return {
+        type: 'text_image',
         show: true,
         background: '',
         title: getTitleNodeDefault(),
@@ -127,16 +174,9 @@ export const getTextImageBlockDefault = (): TextImageBlockType => {
     };
 }
 
-export type FormBlockType = {
-    show: boolean,
-    background: string,
-    title: TitleNodeType,
-    settings: string[],
-    button: ButtonNodeType,
-};
-
 export const getFormBlockDefault = (): FormBlockType => {
     return {
+        type: 'form',
         show: true,
         background: '',
         title: getTitleNodeDefault(),
@@ -151,14 +191,9 @@ export const getFormBlockDefault = (): FormBlockType => {
     };
 }
 
-export type SocialBlockType = {
-    show: boolean,
-    background: string,
-    items: SocialNodeType[],
-};
-
 export const getSocialBlockDefault = (): SocialBlockType => {
     return {
+        type: 'social',
         show: true,
         background: '',
         items: [

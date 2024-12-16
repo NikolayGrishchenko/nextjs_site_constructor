@@ -6,6 +6,10 @@ import axios from "axios";
 import { LandingType } from "@/app/lib/type/landing";
 import QuizTemplateView from "@/app/ui/template/view/quiz";
 import { LandingContext } from "../lib/context/landing";
+import { ImageTemplateType, QuizTemplateType, SocialTemplateType, TextImageTemplateType } from "../lib/type/template";
+import SocialTemplateView from "../ui/template/view/social";
+import ImageTemplateView from "../ui/template/view/image";
+import TextImageTemplateView from "../ui/template/view/text_image";
 
 export default function Page() {
     const pathname = usePathname();
@@ -42,7 +46,20 @@ export default function Page() {
         <div className="container">
             { landing && (
                 <LandingContext.Provider value={landing}>
-                    <QuizTemplateView data={landing.data}></QuizTemplateView>
+                    <>
+                        { landing.template == 'quiz' && (
+                            <QuizTemplateView data={landing.data as QuizTemplateType} />
+                        )}
+                        { landing.template == 'social' && (
+                            <SocialTemplateView data={landing.data as SocialTemplateType} />
+                        )}
+                        { landing.template == 'image' && (
+                            <ImageTemplateView data={landing.data as ImageTemplateType} />
+                        )}
+                        { landing.template == 'text_image' && (
+                            <TextImageTemplateView data={landing.data as TextImageTemplateType} />
+                        )}
+                    </>
                 </LandingContext.Provider>
             )}
             { isError && (

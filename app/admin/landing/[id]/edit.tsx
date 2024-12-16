@@ -3,14 +3,20 @@
 import { LandingContext } from '@/app/lib/context/landing';
 import { EditorEventType, EditorType } from '@/app/lib/type/editor';
 import { LandingType } from '@/app/lib/type/landing';
-import { QuizTemplateType } from '@/app/lib/type/template';
+import { ImageTemplateType, QuizTemplateType, SocialTemplateType, TemplateType, TextImageTemplateType } from '@/app/lib/type/template';
 import Editor from '@/app/ui/editor';
 import Sidebar from "@/app/ui/sidebar";
 import QuizTemplate from '@/app/ui/template/quiz';
 import QuizTemplateView from '@/app/ui/template/view/quiz';
+import SocialTemplate from '@/app/ui/template/social';
+import SocialTemplateView from '@/app/ui/template/view/social';
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import ImageTemplate from '@/app/ui/template/image';
+import ImageTemplateView from '@/app/ui/template/view/image';
+import TextImageTemplate from '@/app/ui/template/text_image';
+import TextImageTemplateView from '@/app/ui/template/view/text_image';
 
 export default function Edit(props: {
     id: number;
@@ -118,11 +124,11 @@ export default function Edit(props: {
         });
     }
 
-    function handleChangeQuizData(quizData: QuizTemplateType) {
+    function handleChangeTemplateData(templateData: TemplateType) {
         if (!!landing) {
             setLanding({
                 ...landing,
-                data: quizData,
+                data: templateData,
             });
         }
     }
@@ -200,9 +206,36 @@ export default function Edit(props: {
                                 {!view &&  <Editor config={editor} onButtonClick={handleEditorButtonClick}></Editor>}
                                 {landing && (
                                     view ? (
-                                        <QuizTemplateView data={landing.data}></QuizTemplateView>
+                                        <>
+                                            { landing.template == 'quiz' && (
+                                                <QuizTemplateView data={landing.data as QuizTemplateType} />
+                                            )}
+                                            { landing.template == 'social' && (
+                                                <SocialTemplateView data={landing.data as SocialTemplateType} />
+                                            )}
+                                            { landing.template == 'image' && (
+                                                <ImageTemplateView data={landing.data as ImageTemplateType} />
+                                            )}
+                                            { landing.template == 'text_image' && (
+                                                <TextImageTemplateView data={landing.data as TextImageTemplateType} />
+                                            )}
+                                        </>
+                                        
                                     ) : (
-                                        <QuizTemplate data={landing.data} editorEvent={editorEvent} onChangeEditor={onChangeEditor} onChangeData={handleChangeQuizData}></QuizTemplate>
+                                        <>
+                                            { landing.template == 'quiz' && (
+                                                <QuizTemplate data={landing.data as QuizTemplateType} editorEvent={editorEvent} onChangeEditor={onChangeEditor} onChangeData={handleChangeTemplateData} />
+                                            )}
+                                            { landing.template == 'social' && (
+                                                <SocialTemplate data={landing.data as SocialTemplateType} editorEvent={editorEvent} onChangeEditor={onChangeEditor} onChangeData={handleChangeTemplateData} />
+                                            )}
+                                            { landing.template == 'image' && (
+                                                <ImageTemplate data={landing.data as ImageTemplateType} editorEvent={editorEvent} onChangeEditor={onChangeEditor} onChangeData={handleChangeTemplateData} />
+                                            )}
+                                            { landing.template == 'text_image' && (
+                                                <TextImageTemplate data={landing.data as TextImageTemplateType} editorEvent={editorEvent} onChangeEditor={onChangeEditor} onChangeData={handleChangeTemplateData} />
+                                            )}
+                                        </>
                                     )
                                 )}
                             </div>

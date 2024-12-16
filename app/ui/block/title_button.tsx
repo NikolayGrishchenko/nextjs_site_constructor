@@ -88,10 +88,10 @@ export default function TitleButtonBlock(props: {
 
     return (
         <div ref={wrapperRef} className={'row block block-edit title-button-block' + (data.show ? '' : ' hidden')} style={style} onClick={handleClickBlock}>
-            <div className="col-8 mt-4 mb-4">
+            <div className="col-8 mt-2 mb-2">
                 <TitleNode data={data.title} editorEvent={props.editorEvent} onChangeEditor={handleChangeEditor} onChangeData={handleChangeTitleData} />
             </div>
-            <div className="col-4 mb-4">
+            <div className="col-4 mt-2 mb-2">
                 <ButtonNode data={data.button} editorEvent={props.editorEvent} onChangeEditor={handleChangeEditor} onChangeData={handleChangeButtonData} />
             </div>
         </div>

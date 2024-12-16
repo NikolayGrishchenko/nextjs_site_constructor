@@ -15,28 +15,36 @@ export default function TextImageBlockView(props: {
     let style = buildStyleBlock(data);
 
     return (
-        <div className='row block title-button-block' style={style}>
-            { (data.title.text.length > 0 || data.text.text.length > 0) && (
-                <div className="col-7 mt-4 mb-4">
-                    <div className="row">
-                        { data.title.text.length > 0 && (
-                            <div className="col-12 mb-2">
-                                <TitleNodeView data={data.title} />
+        <>
+            { data.show && (
+                data.title.text.length > 0 ||
+                data.text.text.length > 0 ||
+                data.media.content.length > 0
+            ) && (
+                <div className='row block text-image-block' style={style}>
+                    { (data.title.text.length > 0 || data.text.text.length > 0) && (
+                        <div className="col-7 mt-4 mb-4">
+                            <div className="row">
+                                { data.title.text.length > 0 && (
+                                    <div className="col-12 mb-2">
+                                        <TitleNodeView data={data.title} />
+                                    </div>
+                                )}
+                                { data.text.text.length > 0 && (
+                                    <div className="col-12">
+                                        <TextNodeView data={data.text} />
+                                    </div>
+                                )}
                             </div>
-                        )}
-                        { data.text.text.length > 0 && (
-                            <div className="col-12">
-                                <TextNodeView data={data.text} />
-                            </div>
-                        )}
-                    </div>
+                        </div>
+                    )}
+                    { data.media.content.length > 0 && (
+                        <div className="col-5 mt-4 mb-4">
+                            <MediaNodeView data={data.media} />
+                        </div>
+                    )}
                 </div>
             )}
-            { data.media.content.length > 0 && (
-                <div className="col-5 mt-4 mb-4">
-                    <MediaNodeView data={data.media} />
-                </div>
-            )}
-        </div>
+        </>
     );
 }

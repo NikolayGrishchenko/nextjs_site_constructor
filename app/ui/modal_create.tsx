@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import { mapLandingTemplate } from "../lib/type/landing";
-import { getQuizTemplateDefault } from "../lib/type/template";
+import { getImageTemplateDefault, getQuizTemplateDefault, getSocialTemplateDefault, getTextImageTemplateDefault } from "../lib/type/template";
 
 export default function ModalCreate() {
     let [opened, setOpened] = useState(false);
@@ -51,7 +51,15 @@ export default function ModalCreate() {
             case 'quiz':
                 data = getQuizTemplateDefault();
                 break;
-        
+            case 'social':
+                data = getSocialTemplateDefault();
+                break;
+            case 'image':
+                data = getImageTemplateDefault();
+                break;
+            case 'text_image':
+                data = getTextImageTemplateDefault();
+                break;
             default:
                 break;
         }
@@ -84,7 +92,7 @@ export default function ModalCreate() {
                                         <div className="col-12 mb-2">
                                             <label className="w-100">
                                                 <div className="modal-title">Название</div>
-                                                <input onChange={handleChangeName} type="text" name="name" className="modal-input w-100" placeholder="Название" required />
+                                                <input onChange={handleChangeName} type="text" name="name" className="modal-input w-100" placeholder="Название" required></input>
                                             </label>
                                         </div>
                                         <div className="col-12 mb-2">
@@ -92,7 +100,7 @@ export default function ModalCreate() {
                                             <div className="row">
                                                 { templates.map(template => {
                                                     return <label key={template.code} className="col-12">
-                                                        <input onChange={handleChangeTemplate} type="radio" name="type" value={template.code} className="mr-1" required />
+                                                        <input onChange={handleChangeTemplate} type="radio" name="type" value={template.code} className="d-inline-block me-1" required></input>
                                                         <span>{template.name}</span>
                                                     </label>;
                                                 }) }
