@@ -1,4 +1,4 @@
-import { QuizTemplateType } from "./template";
+import { ImageTemplateType, QuizTemplateType, SocialTemplateType, TextImageTemplateType } from "./template";
 
 export const mapLandingTemplate = {
     quiz: 'Анкета',
@@ -16,7 +16,7 @@ export type LandingType = {
     is_published: boolean,
     site?: string,
     url?: string,
-    data: QuizTemplateType, // todo change to any templates
+    data: QuizTemplateType | SocialTemplateType | ImageTemplateType | TextImageTemplateType,
 };
 
 export type LandingListType = {
