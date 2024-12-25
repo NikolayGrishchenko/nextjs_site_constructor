@@ -31,7 +31,7 @@ export default function Landings(props: {
         params.set('query', query);
 
         const result = await axios(
-            'http://localhost:2999/api/landings?' + params.toString(),
+            process.env.BACKEND_DOMAIN + '/api/landings?' + params.toString(),
         );
         setData(result.data);
     }
@@ -42,7 +42,7 @@ export default function Landings(props: {
 
     async function handleClickDelete(e: any, id: number) {
         if (confirm('Вы уверены, что хотите удалить этот лэндинг?')) {
-            await axios.delete('http://localhost:2999/api/landings/' + id);
+            await axios.delete(process.env.BACKEND_DOMAIN + '/api/landings/' + id);
             await loadList();
         }
     }
@@ -53,7 +53,7 @@ export default function Landings(props: {
 
     async function handleClickCopy(e: any, landing: LandingType) {
         let result = await axios.post(
-            'http://localhost:2999/api/landings', {
+            process.env.BACKEND_DOMAIN + '/api/landings', {
                 name: landing.name + ' (копия)',
                 template: landing.template,
                 is_published: false,

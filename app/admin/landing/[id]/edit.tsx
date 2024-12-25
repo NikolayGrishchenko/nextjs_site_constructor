@@ -54,7 +54,7 @@ export default function Edit(props: {
     const [landing, setLanding] = useState<LandingType | null>(null);
     async function loadLanding() {
         const result = await axios(
-            'http://localhost:2999/api/landings/' + id.toString(),
+            process.env.BACKEND_DOMAIN + '/api/landings/' + id.toString(),
         );
         setLandingFromAPI(result.data);
     }
@@ -81,7 +81,7 @@ export default function Edit(props: {
 
     async function onSave() {
         const result = await axios.post(
-            'http://localhost:2999/api/landings/' + id, {
+            process.env.BACKEND_DOMAIN + '/api/landings/' + id, {
                 name: landing?.name || '',
                 data: JSON.stringify(landing?.data),
             }
@@ -91,7 +91,7 @@ export default function Edit(props: {
 
     async function onPublish(site: string, url: string, isPublised: boolean) {
         const result = await axios.post(
-            'http://localhost:2999/api/landings/' + id, {
+            process.env.BACKEND_DOMAIN + '/api/landings/' + id, {
                 site,
                 url,
                 is_published: isPublised,

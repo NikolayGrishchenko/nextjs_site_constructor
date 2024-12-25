@@ -65,7 +65,7 @@ export default function ModalCreate() {
         }
 
         let result = await axios.post(
-            'http://localhost:2999/api/landings', {
+            process.env.BACKEND_DOMAIN + '/api/landings', {
                 name,
                 template,
                 data: JSON.stringify(data),

@@ -19,7 +19,7 @@ export default function Page() {
     const [isError, setIsError] = useState(false);
     async function loadLanding() {
         const result = await axios(
-            'http://localhost:2999/api/landings/page/' + slug,
+            process.env.BACKEND_DOMAIN + '/api/landings/page/' + slug,
         );
         let response = result.data;
         if (response) {
