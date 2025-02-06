@@ -15,14 +15,14 @@ export default function Pagination({ totalPages }: { totalPages: number }) {
     };
 
     const generatePagination = (totalPages: number) => {
-        let result = [];
+        const result = [];
         for (let index = 1; index <= totalPages; index++) {
             result.push(index);
         }
         return result;
     }
 
-    let pageAll = generatePagination(totalPages);
+    const pageAll = generatePagination(totalPages);
 
     return (
         <>
@@ -34,7 +34,7 @@ export default function Pagination({ totalPages }: { totalPages: number }) {
                         </li>
                     }
                     { pageAll.map(page => {
-                        let isActive = page == currentPage;
+                        const isActive = page == currentPage;
                         return (
                             <li key={page} className={'page-item' + (isActive && ' active')}>
                                 { isActive ? (

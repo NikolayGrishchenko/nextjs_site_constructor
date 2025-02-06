@@ -3,15 +3,15 @@
 import HeaderBlock from "../block/header";
 import SectionBlock from "../block/section";
 import { BlockType, HeaderBlockType, SectionBlockType, SocialBlockType, TitleButtonBlockType } from "@/app/lib/type/block";
-import { EditorEventType } from "@/app/lib/type/editor";
-import { SocialTemplateType } from "@/app/lib/type/template";
+import { EditorEventType, EditorType } from "@/app/lib/type/editor";
+import { SocialTemplateType, TemplateType } from "@/app/lib/type/template";
 import SocialBlock from "../block/social";
 import TitleButtonBlock from "../block/title_button";
 
 export default function Template(props: {
     data: SocialTemplateType,
-    onChangeEditor: Function,
-    onChangeData: Function,
+    onChangeEditor: (editorData: EditorType) => void,
+    onChangeData: (templateData: TemplateType) => void,
     editorEvent: EditorEventType | null,
 }) {
     const data = props.data;
@@ -26,10 +26,10 @@ export default function Template(props: {
     return (
         <div className="row social-template">
             {(() => {
-                let html: React.JSX.Element[] = [];
+                const html: React.JSX.Element[] = [];
                 let key: keyof SocialTemplateType;
                 for (key in data) {
-                    let field = key;
+                    const field = '' + key;
                     const element: BlockType = data[key];
                     html.push(<div key={key} className="col-12">
                         { element.type == 'header' && (

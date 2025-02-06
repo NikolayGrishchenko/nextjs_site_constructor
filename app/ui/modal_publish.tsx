@@ -8,15 +8,15 @@ export default function ModalPublish({
     url,
     isPublished
 }: {
-    onPublish: Function,
+    onPublish: (site: string, url: string, isPublised: boolean) => void,
     site: string,
     url: string,
     isPublished: boolean
 }
 ) {
-    let [opened, setOpened] = useState(false);
-    let [siteValue, setSite] = useState('');
-    let [urlValue, setUrl] = useState('');
+    const [opened, setOpened] = useState(false);
+    const [siteValue, setSite] = useState('');
+    const [urlValue, setUrl] = useState('');
 
     useEffect(() => {
         setSite(site);
@@ -25,12 +25,12 @@ export default function ModalPublish({
 
     const isFilled = siteValue && siteValue.length > 0;
 
-    function handleChangeSite(e: any) {
-        setSite(e.target.value)
+    function handleChangeSite(e: React.ChangeEvent) {
+        setSite((e.target as HTMLInputElement).value)
     }
 
-    function handleChangeUrl(e: any) {
-        setUrl(e.target.value)
+    function handleChangeUrl(e: React.ChangeEvent) {
+        setUrl((e.target as HTMLInputElement).value)
     }
 
     function handleClickOpen() {
@@ -41,17 +41,17 @@ export default function ModalPublish({
         setOpened(false);
     }
 
-    async function handleClickPublish(e: any) {
+    async function handleClickPublish() {
         await onPublish(siteValue, urlValue, true);
         setOpened(false);
     }
 
-    async function handleClickUnPublish(e: any) {
+    async function handleClickUnPublish() {
         await onPublish(siteValue, urlValue, false);
         setOpened(false);
     }
 
-    async function handleClickSave(e: any) {
+    async function handleClickSave() {
         await onPublish(siteValue, urlValue, isPublished);
         setOpened(false);
     }

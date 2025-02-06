@@ -13,8 +13,8 @@ export default function TextNodeView(props: {
         textHtml = data.text.replaceAll("\n", "<br/>");
     }
 
-    let style = buildStyleNode(data);
-    let className = buildClass(data);
+    const style = buildStyleNode(data);
+    const className = buildClass(data);
 
     return (
         <div className={'w-100 text-node ' + className.join(' ')} style={style} dangerouslySetInnerHTML={{__html: textHtml}}></div>

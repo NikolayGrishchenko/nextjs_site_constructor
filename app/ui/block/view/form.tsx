@@ -15,10 +15,10 @@ export default function FormBlockView(props: {
 
     const landing = useContext(LandingContext);
 
-    let style = buildStyleBlock(data);
+    const style = buildStyleBlock(data);
 
-    let buttonStyle = buildStyleNode(data.button);
-    let buttonClassName = buildClass(data.button);
+    const buttonStyle = buildStyleNode(data.button);
+    const buttonClassName = buildClass(data.button);
 
     return (
         <>

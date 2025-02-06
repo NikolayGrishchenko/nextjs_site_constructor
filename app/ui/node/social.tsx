@@ -1,6 +1,6 @@
 'use client';
 
-import { EditorEventType } from "@/app/lib/type/editor";
+import { EditorEventType, EditorType } from "@/app/lib/type/editor";
 import { SocialNodeType } from "@/app/lib/type/node";
 import { getFileContent } from "@/app/lib/util";
 import Image from 'next/image';
@@ -8,42 +8,45 @@ import Image from 'next/image';
 export default function SocialNode(props: {
     data: SocialNodeType,
     editorEvent: EditorEventType | null,
-    onChangeEditor: Function,
-    onChangeData: Function,
+    onChangeEditor: (editorData: EditorType) => void,
+    onChangeData: (data: SocialNodeType) => void,
 }) {
     const data = props.data;
 
-    function handleClickImage(e: any) {
+    function handleClickImage(e: React.MouseEvent) {
         e.stopPropagation();
 
         props.onChangeEditor({
             buttons: [],
+            data: {}
         });
     }
 
-    async function handleChangeImage(e: any) {
-        let file = e.target.files[0];
+    async function handleChangeImage(e: React.ChangeEvent) {
+        const file = (e.target as HTMLInputElement)?.files?.[0];
+        if (file) {
+            const fileContent = await getFileContent(file);
 
-        let fileContent = await getFileContent(file);
-
-        props.onChangeData({
-            ...data,
-            image: fileContent,
-        });
+            props.onChangeData({
+                ...data,
+                image: fileContent as string,
+            });
+        }
     }
 
-    function handleClickUrl(e: any) {
+    function handleClickUrl(e: React.MouseEvent) {
         e.stopPropagation();
 
         props.onChangeEditor({
             buttons: [],
+            data: {}
         });
     }
 
-    function handleChangeUrl(e: any) {
+    function handleChangeUrl(e: React.ChangeEvent) {
         props.onChangeData({
             ...data,
-            url: e.target.value
+            url: (e.target as HTMLInputElement).value
         });
     }
 

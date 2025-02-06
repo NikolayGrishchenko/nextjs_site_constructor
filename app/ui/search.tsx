@@ -10,11 +10,11 @@ export default function Search({ placeholder }: { placeholder: string }) {
 
     const [term, setTerm] = useState('');
 
-    function handleChange(e: any) {
-        setTerm(e.target.value);
+    function handleChange(e: React.ChangeEvent) {
+        setTerm((e.target as HTMLInputElement).value);
     }
 
-    function handleSubmit(e: any) {
+    function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
 
         const params = new URLSearchParams(searchParams);

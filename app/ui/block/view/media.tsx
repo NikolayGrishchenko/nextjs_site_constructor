@@ -11,11 +11,11 @@ export default function MediaBlockView(props: {
 }) {
     const data = props.data;
 
-    let style = buildStyleBlock(data);
+    const style = buildStyleBlock(data);
 
-    let dataFilled = data.items.filter(item => item.content.length > 0);
+    const dataFilled = data.items.filter(item => item.content.length > 0);
     let colSize = '12';
-    let colStyle: {
+    const colStyle: {
         flex?: string,
         width?: string,
     } = {};

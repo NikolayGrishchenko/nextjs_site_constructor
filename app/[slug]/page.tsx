@@ -17,28 +17,28 @@ export default function Page() {
 
     const [landing, setLanding] = useState<LandingType | null>(null);
     const [isError, setIsError] = useState(false);
-    async function loadLanding() {
-        const result = await axios(
-            process.env.BACKEND_DOMAIN + '/api/landings/page/' + slug,
-        );
-        let response = result.data;
-        if (response) {
-            setLanding({
-                id: response.id,
-                name: response.name,
-                date_create: response.date_create,
-                date_edit: response.date_edit,
-                template: response.template,
-                is_published: response.is_published,
-                site: response.site,
-                url: response.url,
-                data: JSON.parse(response.data),
-            });
-        } else {
-            setIsError(true);
-        }
-    }
     useEffect(() => {
+        async function loadLanding() {
+            const result = await axios(
+                process.env.BACKEND_DOMAIN + '/api/landings/page/' + slug,
+            );
+            const response = result.data;
+            if (response) {
+                setLanding({
+                    id: response.id,
+                    name: response.name,
+                    date_create: response.date_create,
+                    date_edit: response.date_edit,
+                    template: response.template,
+                    is_published: response.is_published,
+                    site: response.site,
+                    url: response.url,
+                    data: JSON.parse(response.data),
+                });
+            } else {
+                setIsError(true);
+            }
+        }
         loadLanding();
     }, [slug]);
 

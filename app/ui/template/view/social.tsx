@@ -14,7 +14,7 @@ export default function SocialTemplateView(props: {
     return (
         <div className="row social-template">
             {(() => {
-                let html: React.JSX.Element[] = [];
+                const html: React.JSX.Element[] = [];
                 let key: keyof SocialTemplateType;
                 for (key in data) {
                     const element: BlockType = data[key];

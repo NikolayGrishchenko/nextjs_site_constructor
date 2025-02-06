@@ -37,22 +37,32 @@ export default function Landings(props: {
     }
 
     useEffect(() => {
+        async function loadList() {
+            const params = new URLSearchParams();
+            params.set('page', page.toString());
+            params.set('query', query);
+
+            const result = await axios(
+                process.env.BACKEND_DOMAIN + '/api/landings?' + params.toString(),
+            );
+            setData(result.data);
+        }
         loadList();
     }, [page, query]);
 
-    async function handleClickDelete(e: any, id: number) {
+    async function handleClickDelete(id: number) {
         if (confirm('Вы уверены, что хотите удалить этот лэндинг?')) {
             await axios.delete(process.env.BACKEND_DOMAIN + '/api/landings/' + id);
             await loadList();
         }
     }
 
-    async function handleClickEdit(e: any, id: number) {
+    async function handleClickEdit(id: number) {
         push(`/admin/landing/${id}`);
     }
 
-    async function handleClickCopy(e: any, landing: LandingType) {
-        let result = await axios.post(
+    async function handleClickCopy(landing: LandingType) {
+        const result = await axios.post(
             process.env.BACKEND_DOMAIN + '/api/landings', {
                 name: landing.name + ' (копия)',
                 template: landing.template,
@@ -62,7 +72,7 @@ export default function Landings(props: {
                 data: landing.data,
             }
         );
-        let id = result.data.id;
+        const id = result.data.id;
         push(`/admin/landing/${id}`);
     }
 
@@ -107,13 +117,13 @@ export default function Landings(props: {
                                         )}
                                     </td>
                                     <td>
-                                        <button type="button" className="btn" onClick={(e) => { handleClickEdit(e, landing.id); }}>
+                                        <button type="button" className="btn" onClick={() => { handleClickEdit(landing.id); }}>
                                             <Image src="/images/edit.png" alt="edit" width="20" height="20"></Image>
                                         </button>
                                         <button type="button" className="btn">
-                                            <Image src="/images/copy.png" alt="copy" width="20" height="20" onClick={(e) => { handleClickCopy(e, landing); }}></Image>
+                                            <Image src="/images/copy.png" alt="copy" width="20" height="20" onClick={() => { handleClickCopy(landing); }}></Image>
                                         </button>
-                                        <button type="button" className="btn" onClick={(e) => { handleClickDelete(e, landing.id); }}>
+                                        <button type="button" className="btn" onClick={() => { handleClickDelete(landing.id); }}>
                                             <Image src="/images/delete.png" alt="delete" width="20" height="20"></Image>
                                         </button>
                                     </td>

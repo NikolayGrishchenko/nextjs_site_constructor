@@ -11,7 +11,7 @@ export default function HeaderBlockView(props: {
 }) {
     const data = props.data;
 
-    let style = buildStyleBlock(data);
+    const style = buildStyleBlock(data);
 
     return (
         <>

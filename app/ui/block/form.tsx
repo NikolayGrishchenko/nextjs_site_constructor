@@ -5,15 +5,15 @@ import ButtonNode from "../node/button";
 import TitleNode from "../node/title";
 import { useEffect, useRef, useState } from "react";
 import { EditorEventType, EditorType } from "@/app/lib/type/editor";
-import { FormBlockType } from "@/app/lib/type/block";
+import { FormBlockType, BlockType } from "@/app/lib/type/block";
 import { buildStyleBlock } from "@/app/lib/util";
 
 
 export default function FormBlock(props: {
     data: FormBlockType,
     editorEvent: EditorEventType | null,
-    onChangeData: Function,
-    onChangeEditor: Function,
+    onChangeData: (data: BlockType) => void,
+    onChangeEditor: (editorData: EditorType) => void,
 }) {
     const data = props.data;
 
@@ -27,12 +27,12 @@ export default function FormBlock(props: {
         position: 'Какую должность хочешь получить',
     };
 
-    let style = buildStyleBlock(data);
+    const style = buildStyleBlock(data);
 
-    const wrapperRef = useRef<any>(null);
+    const wrapperRef = useRef<HTMLDivElement>(null);
     useEffect(() => {
-        function handleClickOutside(event: any) {
-            if (wrapperRef.current && !wrapperRef.current.contains(event.target) && !event.target.closest('.editor')) {
+        function handleClickOutside(event: MouseEvent) {
+            if (wrapperRef.current && !wrapperRef.current.contains(event.target as Node) && event.target && !(event.target as HTMLElement).closest('.editor')) {
                 setIsActiveEditor(false);
             }
         }
@@ -49,18 +49,18 @@ export default function FormBlock(props: {
                 case 'show':
                     props.onChangeData({
                         ...data,
-                        show: props.editorEvent.data.show
+                        show: !!props.editorEvent.data.show
                     });
                     break;
                 case 'background':
                     props.onChangeData({
                         ...data,
-                        background: props.editorEvent.data.background
+                        background: props.editorEvent.data.background || ''
                     });
                     break;
             }
         }
-    }, [props.editorEvent]);
+    }, [props, isActiveEditor, data]);
     
     function handleChangeTitleData(titleData: TitleNodeType) {
         props.onChangeData({
@@ -76,10 +76,10 @@ export default function FormBlock(props: {
         });
     }
 
-    function handleChangeSetting(e: any) {
-        let value = e.target.value;
+    function handleChangeSetting(e: React.ChangeEvent) {
+        const value = e.target ? (e.target as HTMLInputElement).value : '';
 
-        if (e.target.checked) {
+        if (e.target && (e.target as HTMLInputElement).checked) {
             props.onChangeData({
                 ...data,
                 settings: [
@@ -95,7 +95,7 @@ export default function FormBlock(props: {
         }
     }
 
-    function handleClickBlock(e: any) {
+    function handleClickBlock(e: React.MouseEvent) {
         e.stopPropagation();
 
         setIsActiveEditor(true);
@@ -121,7 +121,7 @@ export default function FormBlock(props: {
             <div className="col-12 mt-4 mb-4">
                 <div className="row">
                     {(() => {
-                        let settings: React.JSX.Element[] = [];
+                        const settings: React.JSX.Element[] = [];
                         let settingCode: keyof typeof mapSettings;
                         for (settingCode in mapSettings) {
                             settings.push(

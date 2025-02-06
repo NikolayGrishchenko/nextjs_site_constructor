@@ -10,9 +10,9 @@ export default function SocialBlockView(props: {
 }) {
     const data = props.data;
 
-    let style = buildStyleBlock(data);
+    const style = buildStyleBlock(data);
 
-    let dataFilled = data.items.filter(item => item.image.length > 0 && item.url.length > 0);
+    const dataFilled = data.items.filter(item => item.image.length > 0 && item.url.length > 0);
     
     return (
         <>

@@ -7,15 +7,15 @@ import { mapLandingTemplate } from "../lib/type/landing";
 import { getImageTemplateDefault, getQuizTemplateDefault, getSocialTemplateDefault, getTextImageTemplateDefault } from "../lib/type/template";
 
 export default function ModalCreate() {
-    let [opened, setOpened] = useState(false);
-    let [name, setName] = useState('');
-    let [template, setTemplate] = useState('');
+    const [opened, setOpened] = useState(false);
+    const [name, setName] = useState('');
+    const [template, setTemplate] = useState('');
 
     const { push } = useRouter();
 
     const isFilled = name.length > 0 && template.length > 0;
 
-    let templates = [];
+    const templates = [];
     let key: keyof typeof mapLandingTemplate;
     for (key in mapLandingTemplate) {
         if (Object.prototype.hasOwnProperty.call(mapLandingTemplate, key)) {
@@ -27,12 +27,12 @@ export default function ModalCreate() {
         }
     }
 
-    function handleChangeName(e: any) {
-        setName(e.target.value)
+    function handleChangeName(e: React.ChangeEvent) {
+        setName((e.target as HTMLInputElement).value)
     }
 
-    function handleChangeTemplate(e: any) {
-        setTemplate(e.target.value)
+    function handleChangeTemplate(e: React.ChangeEvent) {
+        setTemplate((e.target as HTMLInputElement).value)
     }
 
     function handleClickCreate() {
@@ -43,7 +43,7 @@ export default function ModalCreate() {
         setOpened(false);
     }
 
-    async function handleSubmit(e: any) {
+    async function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
 
         let data = null;
@@ -64,14 +64,14 @@ export default function ModalCreate() {
                 break;
         }
 
-        let result = await axios.post(
+        const result = await axios.post(
             process.env.BACKEND_DOMAIN + '/api/landings', {
                 name,
                 template,
                 data: JSON.stringify(data),
             }
         );
-        let id = result.data.id;
+        const id = result.data.id;
         push(`/admin/landing/${id}`);
     }
 

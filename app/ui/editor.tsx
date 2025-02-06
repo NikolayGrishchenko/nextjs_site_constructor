@@ -1,16 +1,16 @@
 'use client';
 
 import Image from 'next/image';
-import { EditorType } from '../lib/type/editor';
+import { EditorType, EditorEventType } from '../lib/type/editor';
 import { getFileContent } from '../lib/util';
 
 export default function Editor(props: {
     config: EditorType,
-    onButtonClick: Function
+    onButtonClick: (editorEventData: EditorEventType) => void
 }) {
     const config = props.config;
 
-    function handleClickAlign(e: any, align: string) {
+    function handleClickAlign(align: string) {
         props.onButtonClick({
             type: 'align',
             data: {
@@ -19,7 +19,7 @@ export default function Editor(props: {
         });
     }
 
-    function handleClickList(e: any, list: string) {
+    function handleClickList(list: string) {
         props.onButtonClick({
             type: 'list',
             data: {
@@ -28,16 +28,16 @@ export default function Editor(props: {
         });
     }
 
-    function handleChangeColor(e: any) {
+    function handleChangeColor(e: React.ChangeEvent) {
         props.onButtonClick({
             type: 'color',
             data: {
-                color: e.target.value,
+                color: (e.target as HTMLInputElement).value,
             }
         });
     }
 
-    function handleClickBorder(e: any) {
+    function handleClickBorder() {
         props.onButtonClick({
             type: 'border',
             data: {
@@ -46,7 +46,7 @@ export default function Editor(props: {
         });
     }
 
-    function handleClickShow(e: any) {
+    function handleClickShow() {
         props.onButtonClick({
             type: 'show',
             data: {
@@ -55,18 +55,20 @@ export default function Editor(props: {
         });
     }
 
-    async function handleChangeBackground(e: any) {
-        let file = e.target.files[0];
-        let fileContent = await getFileContent(file);
-        props.onButtonClick({
-            type: 'background',
-            data: {
-                background: fileContent,
-            }
-        });
+    async function handleChangeBackground(e: React.ChangeEvent) {
+        const file = (e.target as HTMLInputElement)?.files?.[0];
+        if (file) {
+            const fileContent = await getFileContent(file);
+            props.onButtonClick({
+                type: 'background',
+                data: {
+                    background: fileContent as string,
+                }
+            });
+        }
     }
 
-    function handleClickBackgroundDelete(e: any) {
+    function handleClickBackgroundDelete() {
         props.onButtonClick({
             type: 'background',
             data: {
@@ -99,23 +101,23 @@ export default function Editor(props: {
                 )}
                 {config.buttons.includes('align') && (
                     <>
-                        <div className={'editor-button' + (config.data.align == 'left' ? ' active' : '')} onClick={e => handleClickAlign(e, 'left')} title='Вывровнять текст по левому краю'>
+                        <div className={'editor-button' + (config.data.align == 'left' ? ' active' : '')} onClick={() => handleClickAlign('left')} title='Вывровнять текст по левому краю'>
                             <Image src="/images/editor_align_left.png" alt="align left" width="20" height="20"></Image>
                         </div>
-                        <div className={'editor-button' + (config.data.align == 'center' ? ' active' : '')} onClick={e => handleClickAlign(e, 'center')} title='Вывровнять текст по центру'>
+                        <div className={'editor-button' + (config.data.align == 'center' ? ' active' : '')} onClick={() => handleClickAlign('center')} title='Вывровнять текст по центру'>
                             <Image src="/images/editor_align_center.png" alt="align center" width="20" height="20"></Image>
                         </div>
-                        <div className={'editor-button' + (config.data.align == 'right' ? ' active' : '')} onClick={e => handleClickAlign(e, 'right')} title='Вывровнять текст по правому краю'>
+                        <div className={'editor-button' + (config.data.align == 'right' ? ' active' : '')} onClick={() => handleClickAlign('right')} title='Вывровнять текст по правому краю'>
                             <Image src="/images/editor_align_right.png" alt="align right" width="20" height="20"></Image>
                         </div>
                     </>
                 )}
                 {config.buttons.includes('list') && (
                     <>
-                        <div className={'editor-button' + (config.data.list == 'ordered' ? ' active' : '')} onClick={e => handleClickList(e, 'ordered')} title='Нумерованный список'>
+                        <div className={'editor-button' + (config.data.list == 'ordered' ? ' active' : '')} onClick={() => handleClickList('ordered')} title='Нумерованный список'>
                             <Image src="/images/editor_list_ordered.png" alt="list ordered" width="20" height="20"></Image>
                         </div>
-                        <div className={'editor-button' + (config.data.list == 'unordered' ? ' active' : '')} onClick={e => handleClickList(e, 'unordered')} title='Нумерованный список'>
+                        <div className={'editor-button' + (config.data.list == 'unordered' ? ' active' : '')} onClick={() => handleClickList('unordered')} title='Нумерованный список'>
                             <Image src="/images/editor_list_unordered.png" alt="list unordered" width="20" height="20"></Image>
                         </div>
                     </>

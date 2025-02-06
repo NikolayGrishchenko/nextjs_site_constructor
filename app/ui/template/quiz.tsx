@@ -3,8 +3,8 @@
 import HeaderBlock from "../block/header";
 import SectionBlock from "../block/section";
 import { BlockType, ColumnsBlockType, FormBlockType, HeaderBlockType, ListBlockType, MediaBlockType, SectionBlockType, SocialBlockType, TextImageBlockType, TitleButtonBlockType } from "@/app/lib/type/block";
-import { EditorEventType } from "@/app/lib/type/editor";
-import { QuizTemplateType } from "@/app/lib/type/template";
+import { EditorEventType, EditorType } from "@/app/lib/type/editor";
+import { QuizTemplateType, TemplateType } from "@/app/lib/type/template";
 import SocialBlock from "../block/social";
 import TitleButtonBlock from "../block/title_button";
 import MediaBlock from "../block/media";
@@ -15,8 +15,8 @@ import FormBlock from "../block/form";
 
 export default function Template(props: {
     data: QuizTemplateType,
-    onChangeEditor: Function,
-    onChangeData: Function,
+    onChangeEditor: (editorData: EditorType) => void,
+    onChangeData: (templateData: TemplateType) => void,
     editorEvent: EditorEventType | null,
 }) {
     const data = props.data;
@@ -31,10 +31,10 @@ export default function Template(props: {
     return (
         <div className="row social-template">
             {(() => {
-                let html: React.JSX.Element[] = [];
+                const html: React.JSX.Element[] = [];
                 let key: keyof QuizTemplateType;
                 for (key in data) {
-                    let field = key;
+                    const field = '' + key;
                     const element: BlockType = data[key];
                     html.push(<div key={key} className="col-12">
                         { element.type == 'header' && (

@@ -19,7 +19,7 @@ export default function QuizTemplateView(props: {
     return (
         <div className="row quiz-template">
             {(() => {
-                let html: React.JSX.Element[] = [];
+                const html: React.JSX.Element[] = [];
                 let key: keyof QuizTemplateType;
                 for (key in data) {
                     const element: BlockType = data[key];

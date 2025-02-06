@@ -3,7 +3,7 @@
 import { SocialNodeType } from "@/app/lib/type/node";
 import { useEffect, useRef, useState } from "react";
 import { EditorEventType, EditorType } from "@/app/lib/type/editor";
-import { SocialBlockType } from "@/app/lib/type/block";
+import { SocialBlockType, BlockType } from "@/app/lib/type/block";
 import SocialNode from "../node/social";
 import { buildStyleBlock } from "@/app/lib/util";
 
@@ -11,19 +11,19 @@ import { buildStyleBlock } from "@/app/lib/util";
 export default function SocailBlock(props: {
     data: SocialBlockType,
     editorEvent: EditorEventType | null,
-    onChangeData: Function,
-    onChangeEditor: Function,
+    onChangeData: (data: BlockType) => void,
+    onChangeEditor: (editorData: EditorType) => void,
 }) {
     const data = props.data;
 
     const [isActiveEditor, setIsActiveEditor] = useState(false);
 
-    let style = buildStyleBlock(data);
+    const style = buildStyleBlock(data);
 
-    const wrapperRef = useRef<any>(null);
+    const wrapperRef = useRef<HTMLDivElement>(null);
     useEffect(() => {
-        function handleClickOutside(event: any) {
-            if (wrapperRef.current && !wrapperRef.current.contains(event.target) && !event.target.closest('.editor')) {
+        function handleClickOutside(event: MouseEvent ) {
+            if (wrapperRef.current && !wrapperRef.current.contains(event.target as Node) && event.target && !(event.target as HTMLElement).closest('.editor')) {
                 setIsActiveEditor(false);
             }
         }
@@ -40,18 +40,18 @@ export default function SocailBlock(props: {
                 case 'show':
                     props.onChangeData({
                         ...data,
-                        show: props.editorEvent.data.show
+                        show: !!props.editorEvent.data.show
                     });
                     break;
                 case 'background':
                     props.onChangeData({
                         ...data,
-                        background: props.editorEvent.data.background
+                        background: props.editorEvent.data.background || ''
                     });
                     break;
             }
         }
-    }, [props.editorEvent]);
+    }, [props, isActiveEditor, data]);
 
     function handleChangeSocialData(socialData: SocialNodeType, index: number) {
         props.onChangeData({
@@ -66,7 +66,7 @@ export default function SocailBlock(props: {
         });
     }
 
-    function handleClickBlock(e: any) {
+    function handleClickBlock(e: React.MouseEvent) {
         e.stopPropagation();
 
         setIsActiveEditor(true);

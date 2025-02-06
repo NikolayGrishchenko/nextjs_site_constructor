@@ -2,15 +2,15 @@
 
 import TextNode from "./text";
 import TitleNode from "./title";
-import { EditorEventType } from "@/app/lib/type/editor";
+import { EditorEventType, EditorType } from "@/app/lib/type/editor";
 import { ColumnNodeType, TextNodeType, TitleNodeType } from "@/app/lib/type/node";
 
 
 export default function ColumnNode(props: {
     data: ColumnNodeType,
     editorEvent: EditorEventType | null,
-    onChangeData: Function,
-    onChangeEditor: Function,
+    onChangeEditor: (editorData: EditorType) => void,
+    onChangeData: (data: ColumnNodeType) => void,
 }) {
     const data = props.data;
 

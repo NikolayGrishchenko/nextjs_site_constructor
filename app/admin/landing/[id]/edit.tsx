@@ -2,7 +2,7 @@
 
 import { LandingContext } from '@/app/lib/context/landing';
 import { EditorEventType, EditorType } from '@/app/lib/type/editor';
-import { LandingType } from '@/app/lib/type/landing';
+import { LandingType, mapLandingTemplate } from '@/app/lib/type/landing';
 import { ImageTemplateType, QuizTemplateType, SocialTemplateType, TemplateType, TextImageTemplateType } from '@/app/lib/type/template';
 import Editor from '@/app/ui/editor';
 import Sidebar from "@/app/ui/sidebar";
@@ -37,7 +37,17 @@ export default function Edit(props: {
     });
     const [editorEvent, setEditorEvent] = useState<EditorEventType | null>(null);
 
-    function setLandingFromAPI(response: any) {
+    function setLandingFromAPI(response: {
+        id: number,
+        name: string,
+        date_create: string,
+        date_edit: string,
+        template: keyof typeof mapLandingTemplate,
+        is_published: boolean,
+        site?: string,
+        url?: string,
+        data: string,
+    }) {
         setLanding({
             id: response.id,
             name: response.name,
@@ -52,20 +62,20 @@ export default function Edit(props: {
     }
 
     const [landing, setLanding] = useState<LandingType | null>(null);
-    async function loadLanding() {
-        const result = await axios(
-            process.env.BACKEND_DOMAIN + '/api/landings/' + id.toString(),
-        );
-        setLandingFromAPI(result.data);
-    }
     useEffect(() => {
+        async function loadLanding() {
+            const result = await axios(
+                process.env.BACKEND_DOMAIN + '/api/landings/' + id.toString(),
+            );
+            setLandingFromAPI(result.data);
+        }
         loadLanding();
     }, [id]);
 
-    const wrapperRef = useRef<any>(null);
+    const wrapperRef = useRef<HTMLDivElement | null>(null);
     useEffect(() => {
-        function handleClickOutside(event: any) {
-            if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
+        function handleClickOutside(event: Event) {
+            if (wrapperRef.current && !wrapperRef.current.contains(event.target as Node)) {
                 setEditor({
                     ...editor,
                     buttons: [],
@@ -77,7 +87,7 @@ export default function Edit(props: {
         return () => {
             document.removeEventListener("click", handleClickOutside);
         };
-    }, [wrapperRef]);
+    }, [wrapperRef, editor]);
 
     async function onSave() {
         const result = await axios.post(
@@ -108,11 +118,11 @@ export default function Edit(props: {
         push(`/admin/landing`);
     }
 
-    function handleChangeName(e: any) {
+    function handleChangeName(e: React.ChangeEvent) {
         if (!!landing) {
             setLanding({
                 ...landing,
-                name: e.target.value,
+                name: (e.target as HTMLInputElement).value,
             });
         }
     }

@@ -37,14 +37,14 @@ export const getFileContent = (file: Blob): Promise<string | ArrayBuffer | null>
 }
 
 export const buildStyleNode = (data: TitleNodeType | TextNodeType | ButtonNodeType): object => {
-    let style = {
+    const style = {
         color: data.color || '#000000',
     };
     return style;
 }
 
 export const buildStyleBlock = (data: HeaderBlockType | ColumnsBlockType | SectionBlockType | MediaBlockType | ListBlockType | TitleButtonBlockType | TextImageBlockType | FormBlockType | SocialBlockType): object => {
-    let style:{
+    const style:{
         backgroundImage?: string,
     } = {};
     if (data.background) {
@@ -54,7 +54,7 @@ export const buildStyleBlock = (data: HeaderBlockType | ColumnsBlockType | Secti
 }
 
 export const buildClass = (data: TitleNodeType | TextNodeType | ButtonNodeType): string[] => {
-    let className = [];
+    const className = [];
 
     switch (data.align) {
         case 'left':

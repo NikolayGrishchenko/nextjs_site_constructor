@@ -3,8 +3,8 @@
 import HeaderBlock from "../block/header";
 import SectionBlock from "../block/section";
 import { BlockType, FormBlockType, HeaderBlockType, ListBlockType, MediaBlockType, SectionBlockType, TextImageBlockType, TitleButtonBlockType } from "@/app/lib/type/block";
-import { EditorEventType } from "@/app/lib/type/editor";
-import { ImageTemplateType } from "@/app/lib/type/template";
+import { EditorEventType, EditorType } from "@/app/lib/type/editor";
+import { ImageTemplateType, TemplateType } from "@/app/lib/type/template";
 import TitleButtonBlock from "../block/title_button";
 import MediaBlock from "../block/media";
 import ListBlock from "../block/list";
@@ -13,8 +13,8 @@ import FormBlock from "../block/form";
 
 export default function ImageTemplate(props: {
     data: ImageTemplateType,
-    onChangeEditor: Function,
-    onChangeData: Function,
+    onChangeEditor: (editorData: EditorType) => void,
+    onChangeData: (templateData: TemplateType) => void,
     editorEvent: EditorEventType | null,
 }) {
     const data = props.data;
@@ -29,10 +29,10 @@ export default function ImageTemplate(props: {
     return (
         <div className="row image-template">
             {(() => {
-                let html: React.JSX.Element[] = [];
+                const html: React.JSX.Element[] = [];
                 let key: keyof ImageTemplateType;
                 for (key in data) {
-                    let field = key;
+                    const field = '' + key;
                     const element: BlockType = data[key];
                     html.push(<div key={key} className="col-12">
                         { element.type == 'header' && (

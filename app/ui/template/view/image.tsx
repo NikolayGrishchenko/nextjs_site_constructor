@@ -16,7 +16,7 @@ export default function ImageTemplateView(props: {
     return (
         <div className="row image-template">
             {(() => {
-                let html: React.JSX.Element[] = [];
+                const html: React.JSX.Element[] = [];
                 let key: keyof ImageTemplateType;
                 for (key in data) {
                     const element: BlockType = data[key];

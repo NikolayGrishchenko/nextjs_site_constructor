@@ -7,7 +7,7 @@ export default function ListNodeView(props: {
 }) {
     const data = props.data;
 
-    let style = {
+    const style = {
         color: data.color || '#000000',
     };
 

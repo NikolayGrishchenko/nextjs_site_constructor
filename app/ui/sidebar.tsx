@@ -12,25 +12,25 @@ export default function Sidebar({
     isPublished,
     view
 }: {
-    onSave: Function,
-    onPublish: Function,
-    onView: Function,
-    onExit: Function,
+    onSave: () => void,
+    onPublish: (site: string, url: string, isPublised: boolean) => void,
+    onView: () => void,
+    onExit: () => void,
     site: string,
     url: string,
     isPublished: boolean,
     view: boolean
 }
 ) {
-    function handleClickSave(e: any) {
+    function handleClickSave() {
         onSave();
     }
 
-    function handleClickView(e: any) {
+    function handleClickView() {
         onView();
     }
 
-    function handleClickExit(e: any) {
+    function handleClickExit() {
         onExit();
     }
 

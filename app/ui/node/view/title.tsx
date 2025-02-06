@@ -8,8 +8,8 @@ export default function TitleNodeView(props: {
 }) {
     const data = props.data;
 
-    let style = buildStyleNode(data);
-    let className = buildClass(data);
+    const style = buildStyleNode(data);
+    const className = buildClass(data);
 
     return (
         <div className={'title-node ' + className.join(' ')} style={style}>{ data.text }</div>

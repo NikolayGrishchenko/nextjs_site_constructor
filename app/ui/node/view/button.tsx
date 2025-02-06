@@ -8,8 +8,8 @@ export default function ButtonNodeView(props: {
 }) {
     const data = props.data;
 
-    let style = buildStyleNode(data);
-    let className = buildClass(data);
+    const style = buildStyleNode(data);
+    const className = buildClass(data);
     
     return (
         <>

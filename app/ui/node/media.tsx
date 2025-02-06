@@ -1,6 +1,6 @@
 'use client';
 
-import { EditorEventType } from "@/app/lib/type/editor";
+import { EditorEventType, EditorType } from "@/app/lib/type/editor";
 import { MediaNodeType } from "@/app/lib/type/node";
 import { getFileContent } from "@/app/lib/util";
 import Image from 'next/image';
@@ -8,25 +8,26 @@ import Image from 'next/image';
 export default function MediaNode(props: {
     data: MediaNodeType,
     editorEvent: EditorEventType | null,
-    onChangeEditor: Function,
-    onChangeData: Function,
+    onChangeEditor: (editorData: EditorType) => void,
+    onChangeData: (data: MediaNodeType) => void,
 }) {
     const data = props.data;
 
-    async function handleChangeMedia(e: any) {
-        let file = e.target.files[0];
-        let type = file.type.split('/')[0];
+    async function handleChangeMedia(e: React.ChangeEvent) {
+        const file = (e.target as HTMLInputElement)?.files?.[0];
+        if (file) {
+            const type = file.type.split('/')[0];
+            const fileContent = await getFileContent(file);
 
-        let fileContent = await getFileContent(file);
-
-        props.onChangeData({
-            ...data,
-            type: type,
-            content: fileContent,
-        });
+            props.onChangeData({
+                ...data,
+                type: type,
+                content: fileContent as string,
+            });
+        }
     }
 
-    function handleClickDelete(e: any) {
+    function handleClickDelete() {
         props.onChangeData({
             ...data,
             type: '',

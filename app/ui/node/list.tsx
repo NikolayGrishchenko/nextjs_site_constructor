@@ -1,23 +1,23 @@
 'use client';
 
-import { EditorEventType } from "@/app/lib/type/editor";
+import { EditorEventType, EditorType } from "@/app/lib/type/editor";
 import { ListNodeType } from "@/app/lib/type/node";
 import { useEffect, useRef, useState } from "react";
 
 export default function ListNode(props: {
     data: ListNodeType,
     editorEvent: EditorEventType | null,
-    onChangeEditor: Function,
-    onChangeData: Function,
+    onChangeEditor: (editorData: EditorType) => void,
+    onChangeData: (data: ListNodeType) => void,
 }) {
     const data = props.data;
 
     const [isActiveEditor, setIsActiveEditor] = useState(false);
 
-    const wrapperRef = useRef<any>(null);
+    const wrapperRef = useRef<HTMLDivElement>(null);
     useEffect(() => {
-        function handleClickOutside(event: any) {
-            if (wrapperRef.current && !wrapperRef.current.contains(event.target) && !event.target.closest('.editor')) {
+        function handleClickOutside(event: MouseEvent) {
+            if (wrapperRef.current && !wrapperRef.current.contains(event.target as Node) && event.target && !(event.target as HTMLElement).closest('.editor')) {
                 setIsActiveEditor(false);
             }
         }
@@ -34,24 +34,24 @@ export default function ListNode(props: {
                 case 'color':
                     props.onChangeData({
                         ...data,
-                        color: props.editorEvent.data.color
+                        color: props.editorEvent.data.color || ''
                     });
                     break;
                 case 'list':
                     props.onChangeData({
                         ...data,
-                        type: props.editorEvent.data.list
+                        type: props.editorEvent.data.list || ''
                     });
                     break;
             }
         }
     }, [props.editorEvent]);
 
-    let style = {
+    const style = {
         color: data.color || '#000000',
     };
 
-    function handleClickList(e: any) {
+    function handleClickList(e: React.MouseEvent) {
         e.stopPropagation();
 
         setIsActiveEditor(true);
@@ -64,12 +64,12 @@ export default function ListNode(props: {
         });
     }
 
-    function handleChangeItem(e: any, index: number) {
+    function handleChangeItem(e: React.ChangeEvent, index: number) {
         props.onChangeData({
             ...data,
             items: data.items.map((item, i) => {
                 if (i == index) {
-                    return e.target.value;
+                    return (e.target as HTMLInputElement).value;
                 } else {
                     return item;
                 }
@@ -77,8 +77,8 @@ export default function ListNode(props: {
         });
     }
 
-    function handleClickAdd(e: any) {
-        let items = data.items;
+    function handleClickAdd() {
+        const items = data.items;
         items.push('');
 
         props.onChangeData({
@@ -93,7 +93,7 @@ export default function ListNode(props: {
                 { items.map((item, index) => {
                     return (
                         <li key={index}>
-                            <input type="text" onChange={(e: any) => { handleChangeItem(e, index)}} className='node-input' defaultValue={item} />
+                            <input type="text" onChange={(e: React.ChangeEvent) => { handleChangeItem(e, index)}} className='node-input' defaultValue={item} />
                         </li>
                     );
                 })}
